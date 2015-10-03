@@ -27,8 +27,10 @@ var Blocks = function(){
     holder.position.z = 0;
     var diff = Math.floor(data.spectrum.length / boxes.length);
     _.each(boxes, function(box, index){
-      var toScale = data.spectrum[diff * index] * 0.03;
-      box.mesh.scale.y = toScale < 0.01 ? 0.01 : toScale;
+      var scale = data.spectrum[diff * index] * 0.03;
+      var toScale = scale < 0.01 ? 0.01 : scale;
+      box.mesh.scale.y = toScale;
+      box.mesh.position.y = boxSize * 1.5 * toScale;
     });
   };
 
@@ -47,32 +49,39 @@ var Blocks = function(){
   function addObject(){
     cube = new THREE.BoxGeometry(boxSize, boxSize*3, boxSize);
 
+    var meshHolder = new THREE.Object3D();
+    meshHolder.name = "box"+boxes.length;
+
     mesh = new THREE.Mesh(cube, material);
-    mesh.name = "box"+boxes.length;
 
     x = h + r * Math.cos(theta);
     y = k - r * Math.sin(theta);
 
-    mesh.position.x = x -radius;
-    mesh.position.y = y -radius;
-    mesh.position.z = -40;
+    meshHolder.position.x = x -radius;
+    meshHolder.position.y = y -radius;
+    meshHolder.position.z = -40;
+
+    mesh.position.y = boxSize*3;
 
     var boxNum = boxes.length;
     var kerroin = boxNum / boxAmount;
     var rotation = 360 * kerroin;
 
-    mesh.rotation.z = rotation * (Math.PI/180) * -1;
+    meshHolder.rotation.z = rotation * (Math.PI/180) * -1;
+    //mesh.rotation.x = 45;
 
     boxes.push({
       mesh: mesh,
       originalPosition: {
-        x: mesh.position.x,
-        y: mesh.position.y,
-        z: mesh.position.z
+        x: meshHolder.position.x,
+        y: meshHolder.position.y,
+        z: meshHolder.position.z
       },
     });
 
-    holder.add(mesh);
+    meshHolder.add(mesh);
+
+    holder.add(meshHolder);
 
     //spot += boxSize + 10;
     theta += step;
