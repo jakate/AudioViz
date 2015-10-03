@@ -14,6 +14,7 @@ var Blocks = function(){
   var r = radius;
 
   var lights;
+  var colors;
 
   var step = 2*Math.PI/boxAmount;
   var theta = step * (boxAmount / 4) * -1;
@@ -26,14 +27,23 @@ var Blocks = function(){
     holder.position.z = 0;
   };
 
-  this.update = function(data) {
+  this.update = function(newColors, data) {
     var diff = Math.floor(data.spectrum.length / boxes.length);
+
+    if(newColors !== colors) {
+      colors = newColors;
+      _.each(lights, function(lightObj, index){
+        var color = colors[index] || 0xffffff;
+        lightObj.light.color.setHex(color);
+      });
+    }
+
     _.each(boxes, function(box, index){
       var scale = data.spectrum[diff * index] * 0.03;
       var toScale = scale < 0.01 ? 0.01 : scale;
       box.mesh.scale.y = toScale;
       box.mesh.position.y = boxHeight / 2 * toScale;
-      box.mesh.rotation.y -= 0.05;
+      //box.mesh.rotation.y -= 0.05;
     });
   };
 

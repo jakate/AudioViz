@@ -82,7 +82,7 @@ var AudioDrawer = function(){
     }
 
     background.update(colors, data, bpm);
-    blocks.update(data);
+    blocks.update(colors, data);
     smoke.update();
     renderer.render(scene, camera);
 
