@@ -6,9 +6,6 @@ var AudioDrawer = function(){
   var blocks = new Blocks();
   var smoke = new Smoke();
   var background = new Background();
-
-  var radius = (window.innerWidth < window.innerHeight ? window.innerWidth - 50 : window.innerHeight - 50);
-  var lights;
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
@@ -26,7 +23,6 @@ var AudioDrawer = function(){
     scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
 
     addRenderer();
-    addLights();
 
     particleStreams.init(scene);
     blocks.init(scene);
@@ -104,24 +100,5 @@ var AudioDrawer = function(){
 
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
-  }
-
-  function addLights(){
-    var spot = radius * 2 / 10;
-
-    lights = [
-      {distance: 650, color: 0xff0099, origPos: {x: spot, y: spot, z: 100}},
-      {distance: 650, color: 0xff0099, origPos: {x: spot * -1, y: spot, z: 100}},
-      {distance: 650, color: 0xff0099, origPos: {x: spot * -1, y: spot * -1, z: 100}},
-      {distance: 650, color: 0xff0099, origPos: {x: spot, y: spot * -1, z: 100}}
-    ];
-
-    for (var i = 0; i < lights.length; i++) {
-      var light = new THREE.PointLight(lights[i].color, 830, lights[i].distance, 30);
-      light.position.set(lights[i].origPos.x, lights[i].origPos.y, lights[i].origPos.z);
-      scene.add(light);
-
-      lights[i].light = light;
-    }
   }
 };

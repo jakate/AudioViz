@@ -49,6 +49,11 @@ var AudioVisualizer = function(){
     audioDrawer = new AudioDrawer();
     audioDrawer.init(modes, colorSchemes[selectedSheme]);
     window.addEventListener("keydown", dealWithKeyboard, false);
+
+    window.addEventListener( 'resize', onWindowResize, false );
+    function onWindowResize() {
+      audioDrawer.resize();
+    }
   };
 
   this.initLoadSong = function(songName, style){
@@ -126,10 +131,5 @@ var AudioVisualizer = function(){
     if(colorChanged) {
       audioDrawer.changeColors(colorSchemes[selectedSheme]);
     }
-  }
-
-  window.addEventListener( 'resize', onWindowResize, false );
-  function onWindowResize() {
-    audioDrawer.resize();
   }
 };

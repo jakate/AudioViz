@@ -4,8 +4,9 @@ var Blocks = function(){
 
   var scene, cube, mesh, holder;
   var spot = -200;
-  var boxAmount = 64;
-  var boxSize = 4;
+  var boxAmount = 32;
+  var boxSize = 8;
+  var boxHeight = 8 * 2;
   var boxes = [];
   var material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 50 } );
 
@@ -15,6 +16,8 @@ var Blocks = function(){
   var h = radius;
   var k = radius;
   var r = radius;
+
+  var lights;
 
   var step = 2*Math.PI/boxAmount;
   var theta = step * (boxAmount / 4) * -1;
@@ -33,7 +36,8 @@ var Blocks = function(){
       var scale = data.spectrum[diff * index] * 0.03;
       var toScale = scale < 0.01 ? 0.01 : scale;
       box.mesh.scale.y = toScale;
-      box.mesh.position.y = boxSize * 1.5 * toScale;
+      box.mesh.position.y = boxHeight / 2 * toScale;
+      box.mesh.rotation.y -= 0.05;
     });
   };
 
@@ -47,10 +51,12 @@ var Blocks = function(){
     for (var i = 0; i < boxAmount; i++) {
       addObject();
     }
+
+    addLights();
   };
 
   function addObject(){
-    cube = new THREE.BoxGeometry(boxSize, boxSize*3, boxSize);
+    cube = new THREE.BoxGeometry(boxSize, boxHeight, boxSize);
 
     var meshHolder = new THREE.Object3D();
     meshHolder.name = "box"+boxes.length;
@@ -86,7 +92,25 @@ var Blocks = function(){
 
     holder.add(meshHolder);
 
-    //spot += boxSize + 10;
     theta += step;
+  }
+
+  function addLights(){
+    var spot = radius;
+
+    lights = [
+      {distance: 650, color: 0xff0099, origPos: {x: spot, y: spot, z: 100}},
+      {distance: 650, color: 0xff0099, origPos: {x: spot * -1, y: spot, z: 100}},
+      {distance: 650, color: 0xff0099, origPos: {x: spot * -1, y: spot * -1, z: 100}},
+      {distance: 650, color: 0xff0099, origPos: {x: spot, y: spot * -1, z: 100}}
+    ];
+
+    for (var i = 0; i < lights.length; i++) {
+      var light = new THREE.PointLight(lights[i].color, 830, lights[i].distance, 30);
+      light.position.set(lights[i].origPos.x, lights[i].origPos.y, lights[i].origPos.z);
+      scene.add(light);
+
+      lights[i].light = light;
+    }
   }
 };
