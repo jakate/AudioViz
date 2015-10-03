@@ -1,0 +1,69 @@
+html, body {
+  padding:0;
+  margin:0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial;
+  background: #543172;
+  color: #fff;
+}
+
+canvas {
+  width: 100%;
+  height: 100%
+}
+
+#songForm {
+  display: block;
+  padding: 40vh 0;
+  text-align: center;
+}
+
+#songForm .group{
+  padding: 10px 0;
+}
+
+#songForm label input {
+  cursor: pointer;
+}
+
+#songForm label{
+  padding: 0 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#songForm input:focus {
+  outline: none;
+}
+
+#songForm input[type=submit],
+#songForm input[type=text]{
+  border: 1px solid #cdcdcd;
+  border-radius: 3px;
+  background: #fff;
+  padding: 20px 30px;
+  font-size: 16px;
+  text-align: center;
+}
+
+#songForm input[type=text]{
+  width: 300px;
+}
+
+#songForm input[type=submit]{
+  padding: 15px 30px;
+  cursor:pointer;
+}
+
+#songForm input[type=submit]:hover{
+  background: #543172;
+  color: #fff;
+}
+
+
+
+/* stats ----- */
+#stats { position: absolute; top:0; left: 0 }
+#stats #fps { background: transparent !important }
+#stats #fps #fpsText { color: #777 !important }
