@@ -16,7 +16,7 @@ var AudioVisualizer = function(){
 
   var modes = {
     background: true,
-    blocks: true,
+    blocks: false,
     circle: false,
     flower: false,
     smoke: false

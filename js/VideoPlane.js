@@ -28,8 +28,11 @@ var VideoPlane = function(){
     }
   };
 
-  this.update = function() {
+  this.show = function() {
     movieScreen.position.z = 0;
+  };
+
+  this.update = function() {
     if(!videoImageContext) {
       return;
     }

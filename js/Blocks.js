@@ -23,8 +23,11 @@ var Blocks = function(){
     holder.position.z = 1000;
   };
 
-  this.update = function(data) {
+  this.show = function() {
     holder.position.z = 0;
+  };
+
+  this.update = function(data) {
     var diff = Math.floor(data.spectrum.length / boxes.length);
     _.each(boxes, function(box, index){
       var scale = data.spectrum[diff * index] * 0.03;

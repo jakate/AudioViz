@@ -19,22 +19,17 @@ var ParticleStream = function(){
         fog: false
       });
 
-      var spreadPos = 0; // 40
+      var spreadPos = 0;
       emitter = new SPE.Emitter({
         position: new THREE.Vector3(pos.x, pos.y, pos.z),
         positionSpread: new THREE.Vector3(spreadPos, spreadPos, spreadPos),
-
-        acceleration: new THREE.Vector3(0, 0, 0), // 20
-        //accelerationSpread: new THREE.Vector3(4, 4, 4),
-
+        acceleration: new THREE.Vector3(0, 0, 0),
         velocity: new THREE.Vector3(0, 0, 10),
-
         colorStart: new THREE.Color(color),
         colorEnd: new THREE.Color('white'),
         sizeStart: 20,
         sizeEnd: 30,
-
-        particleCount: 500 // 800
+        particleCount: 500
       });
 
       particleGroup.addEmitter( emitter );

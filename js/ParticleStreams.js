@@ -5,7 +5,7 @@ var ParticleStreams = function() {
   var scene;
   var offserRadius = -200;
   var origRadius = (window.innerWidth < window.innerHeight ? window.innerWidth + offserRadius : window.innerHeight + offserRadius) / 4;  //(window.innerWidth < window.innerHeight ? window.innerWidth - 50 : window.innerHeight - 50) / 4;
-  var maxRadius, radius, h, k, r;
+  var maxRadius, radius, h, k, r, holder;
 
   var lights = [
     {light: null, color: 0xffffff, stream: null},
@@ -36,6 +36,10 @@ var ParticleStreams = function() {
 
   this.hide = function(){
     holder.position.z = 1000;
+  };
+
+  this.show = function(){
+    holder.position.z = 0;
   };
 
   this.countRadius = function(forceRadius) {
@@ -72,8 +76,6 @@ var ParticleStreams = function() {
 
       lightObj.stream.update(colors[index], lightObj.light.position);
     });
-
-    holder.position.z = 0;
 
     r = r + radiusDirection;
 

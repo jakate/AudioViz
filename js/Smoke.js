@@ -11,6 +11,12 @@ var Smoke = function(){
     });
   };
 
+  this.show = function() {
+    _.each(planes, function(plane){
+      plane.show();
+    });
+  };
+
   this.update = function() {
     _.each(planes, function(plane){
       plane.update();

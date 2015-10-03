@@ -3,27 +3,20 @@
 var AudioDrawer = function(){
 
   var camera, scene, renderer, container;
-  var backgroundLight;
-  var backgroundPlane;
   var blocks = new Blocks();
   var smoke = new Smoke();
+  var background = new Background();
 
   var radius = (window.innerWidth < window.innerHeight ? window.innerWidth - 50 : window.innerHeight - 50);
   var lights;
-
-  var lowPeaks = [];
-  var volumePeaks = [];
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
   var colors, modes;
 
   this.init = function(initModes, initColors) {
-    colors = initColors;
-    modes = initModes;
-
     container = document.createElement( 'div' );
-    document.body.appendChild( container );
+    document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 15000 );
     camera.position.z = 500;
@@ -33,12 +26,15 @@ var AudioDrawer = function(){
     scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
 
     addRenderer();
-    addBackground();
     addLights();
 
     particleStreams.init(scene);
     blocks.init(scene);
     smoke.init(scene);
+    background.init(scene);
+
+    colors = initColors;
+    this.changeMode(initModes)
   };
 
   this.resize = function() {
@@ -49,6 +45,30 @@ var AudioDrawer = function(){
 
   this.changeMode = function(newModes) {
     modes = newModes;
+
+    if(modes.background === false){
+      background.hide();
+    } else {
+      background.show();
+    }
+
+    if(modes.blocks === false){
+      blocks.hide();
+    } else {
+      blocks.show();
+    }
+
+    if(modes.circle === false && modes.flower === false){
+      particleStreams.hide();
+    } else {
+      particleStreams.show();
+    }
+
+    if(modes.smoke === false){
+      smoke.hide();
+    } else {
+      smoke.show();
+    }
   };
 
   this.changeColors = function(newColors) {
@@ -61,75 +81,19 @@ var AudioDrawer = function(){
   };
 
   this.render = function(data, bpm) {
-    // Background
-    if(modes.background) {
-      var lowPeak = 0;
-      var cutoff = Math.floor(data.spectrum.length * 0.05);
-      _.each(data.spectrum, function(spec, index){
-        if(index < cutoff) {
-          lowPeak = spec > lowPeak ? spec : lowPeak;
-          lowPeaks.push(spec);
-        }
-      });
-
-      lowPeaks = _.uniq(lowPeaks);
-      lowPeaks.sort(function compareNumbers(a, b) {
-        return a - b;
-      });
-
-      var lowPeakThreshold = lowPeaks[Math.floor(lowPeaks.length * 0.75)];
-      backgroundLight.color.setHex(colors[0]);
-
-      if(lowPeak > lowPeakThreshold) {
-        backgroundLight.position.z = -199 + data.volume * 100;
-      } else {
-        backgroundLight.position.z = backgroundLight.position.z < -199 ? -199 : backgroundLight.position.z - 1;
-      }
+    if(modes.flower) {
+      particleStreams.update(colors, 10, 60);
     } else {
-      backgroundLight.position.z = 1000;
+      particleStreams.update(colors, bpm);
     }
 
-    // Blocks
-    if(modes.blocks){
-      blocks.update(data);
-    } else {
-      blocks.hide();
-    }
-
-    // Circle
-    if(modes.circle || modes.flower){
-      // Flower
-      if(modes.flower) {
-        particleStreams.update(colors, 10, 60);
-      } else {
-        particleStreams.update(colors, bpm);
-      }
-    } else {
-      particleStreams.hide();
-    }
-
-    // Smoke
+    background.update(colors, data, bpm);
+    blocks.update(data);
     smoke.update();
-    if(!modes.smoke){
-      smoke.hide();
-    }
-
     renderer.render(scene, camera);
 
     counter++;
   };
-
-  function addBackground(){
-    var geometry = new THREE.PlaneBufferGeometry(1200, 800, 32 );
-    var material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 50 } );
-    backgroundPlane = new THREE.Mesh( geometry, material );
-    backgroundPlane.position.z = -200;
-    scene.add(backgroundPlane);
-
-    backgroundLight = new THREE.PointLight(0x0000ff, 1, 700, 3);
-    backgroundLight.position.set(0, 0, -199);
-    scene.add(backgroundLight);
-  }
 
   function addRenderer(){
     renderer = new THREE.WebGLRenderer( { antialias: false, alpha: false } );
