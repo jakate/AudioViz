@@ -10,8 +10,9 @@ var AudioPlayer = function(){
   };
 
   this.getData = function(){
-    analyser.getByteFrequencyData(dataArray);
+    //analyser.getByteFrequencyData(dataArray);
     //analyser.getByteTimeDomainData(dataArray);
+    analyser.getByteFrequencyData(dataArray);
 
     return {
       spectrum: dataArray,
@@ -22,13 +23,12 @@ var AudioPlayer = function(){
 
   this.init = function(buffersize){
     analyser.minDecibels = -90;
-    analyser.maxDecibels = -10;
+    analyser.maxDecibels = 0;
     analyser.smoothingTimeConstant = 0.85;
 
     analyser.fftSize = buffersize;
-    bufferLength = analyser.fftSize;
+    bufferLength = analyser.frequencyBinCount;
     dataArray = new Uint8Array(bufferLength);
-    analyser.getByteTimeDomainData(dataArray);
   };
 
   this.micConnected = function(stream, buffersize){

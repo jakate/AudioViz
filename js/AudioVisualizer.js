@@ -5,7 +5,7 @@ var AudioVisualizer = function(){
   var self = this;
   var audioPlayer = new AudioPlayer();
   var audioLoader = new AudioLoader();
-  var buffersize = 512;
+  var buffersize = 256;
   var audioDrawer, data;
   var bpm = 80;
 

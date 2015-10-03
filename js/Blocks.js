@@ -4,7 +4,7 @@ var Blocks = function(){
 
   var scene, cube, mesh, holder;
   var spot = -200;
-  var boxAmount = 128;
+  var boxAmount = 64;
   var boxSize = 4;
   var boxes = [];
   var material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 50 } );
@@ -27,9 +27,8 @@ var Blocks = function(){
     holder.position.z = 0;
     var diff = Math.floor(data.spectrum.length / boxes.length);
     _.each(boxes, function(box, index){
-      //var toScale = data.spectrum[diff * index] * 0.1 * data.volume || 0;
       var toScale = data.spectrum[diff * index] * 0.03;
-      box.mesh.scale.y = toScale;
+      box.mesh.scale.y = toScale < 0.01 ? 0.01 : toScale;
     });
   };
 
