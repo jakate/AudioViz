@@ -14,9 +14,17 @@ canvas {
 }
 
 #formHolder {
+  width: 400px;
+  margin: 0 auto;
   display: block;
   padding: 40vh 0;
   text-align: center;
+}
+
+.info {
+  font-size: 12px;
+  color: #B088D2;
+  text-align: right;
 }
 
 form .group{
@@ -48,7 +56,8 @@ form input[type=text]{
 }
 
 form input[type=text]{
-  width: 300px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 form input[type=submit]{
