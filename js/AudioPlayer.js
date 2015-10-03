@@ -10,8 +10,6 @@ var AudioPlayer = function(){
   };
 
   this.getData = function(){
-    //analyser.getByteFrequencyData(dataArray);
-    //analyser.getByteTimeDomainData(dataArray);
     analyser.getByteFrequencyData(dataArray);
 
     return {

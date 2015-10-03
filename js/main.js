@@ -10,25 +10,24 @@ navigator.getUserMedia = (navigator.getUserMedia ||
   var songForm = document.getElementById("songForm");
   var formHolder = document.getElementById("formHolder");
   var av = new AudioVisualizer();
-  av.init();
 
-  function hideForms(){
+  function startVisualization(){
+    av.init();
     formHolder.style.display = "none";
   }
 
   micForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    startVisualization();
     av.initMic();
-    hideForms();
   });
 
   songForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var song = e.target.elements.song.value;
 
-    hideForms();
+    startVisualization();
     av.initLoadSong(song);
-
   }, false);
 
 }());
