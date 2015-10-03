@@ -5,6 +5,7 @@ var VideoPlane = function(){
   var video, videoImageContext, videoImage, videoTexture, scene, movieScreen;
   var loop = false;
   var self = this;
+  var shouldHide = false;
 
   var videos = [
     'Field3Front.mp4',
@@ -23,12 +24,11 @@ var VideoPlane = function(){
   ];
 
   this.hide = function() {
-    if(loop === true) {
-      movieScreen.position.z = 1000;
-    }
+    shouldHide = true;
   };
 
   this.show = function() {
+    shouldHide = false;
     movieScreen.position.z = 0;
   };
 
@@ -43,7 +43,11 @@ var VideoPlane = function(){
     }
   };
 
-  this.changeVideoEvent = function(e){
+  this.videoEndedEvent = function(e){
+    if(shouldHide) {
+      movieScreen.position.z = 1000;
+    }
+
     self.changeVideo();
   }
 
@@ -73,7 +77,7 @@ var VideoPlane = function(){
     var selectedVideo = videos[Math.floor(Math.random() * videos.length)];
     video = document.createElement( 'video' );
     this.playVideo(selectedVideo);
-    video.onended = this.changeVideoEvent;
+    video.onended = this.videoEndedEvent;
 
     var w = 480;
     var h = 500;
