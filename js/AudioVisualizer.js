@@ -26,14 +26,38 @@ var AudioVisualizer = function(){
 
   var selectedSheme = 0;
 
-  this.init = function(songName, style){
-    audioDrawer = style === "3d" ? new AudioDrawer() : new AudioDrawer2d();
-    audioDrawer.init();
-    audioLoader.getSong(songName, songLoaded);
+  this.initMic = function(){
+    if (navigator.getUserMedia) {
+       navigator.getUserMedia (
+          // constraints - only audio needed for this app
+          {
+             audio: true
+          },
 
+          // Success callback
+          function(stream) {
+             audioPlayer.micConnected(stream, buffersize);
+             self.tick();
+          },
+
+          // Error callback
+          function(err) {
+             console.log('The following gUM error occured: ' + err);
+          }
+       );
+    } else {
+       console.log('getUserMedia not supported on your browser!');
+    }
+  };
+
+  this.init = function(songName){
+    audioDrawer = new AudioDrawer();
+    audioDrawer.init();
     window.addEventListener("keydown", dealWithKeyboard, false);
-    //window.addEventListener("keypress", dealWithKeyboard, false);
-    //window.addEventListener("keyup", dealWithKeyboard, false);
+  };
+
+  this.initLoadSong = function(songName, style){
+    audioLoader.getSong(songName, songLoaded);
   };
 
   function songLoaded(request){

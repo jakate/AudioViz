@@ -10,14 +10,21 @@
     <body>
         <!--button id="stop">Stop</button-->
         <!--canvas width="600" height="600"></canvas-->
-        <form id="songForm">
-            <div class="group">
-                <input type="text" placeholder="search from spotify" name="song" value="eminem"/>
-            </div>
-            <div class="group">
-                <input type="submit" value="Start">
-            </div>
-        </form>
+        <div id="formHolder">
+            <form id="songForm">
+                <div class="group">
+                    <input type="text" placeholder="search from spotify" name="song" value="eminem"/>
+                </div>
+                <div class="group">
+                    <input type="submit" value="Load song">
+                </div>
+            </form>
+            <form id="micForm">
+                <div class="group">
+                    <input type="submit" value="Use Mic">
+                </div>
+            </form>
+        </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
         <script src="js/lib/spotify.js"></script>

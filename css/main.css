@@ -13,32 +13,32 @@ canvas {
   height: 100%
 }
 
-#songForm {
+#formHolder {
   display: block;
   padding: 40vh 0;
   text-align: center;
 }
 
-#songForm .group{
+form .group{
   padding: 10px 0;
 }
 
-#songForm label input {
+form label input {
   cursor: pointer;
 }
 
-#songForm label{
+form label{
   padding: 0 5px;
   display: inline-block;
   cursor: pointer;
 }
 
-#songForm input:focus {
+form input:focus {
   outline: none;
 }
 
-#songForm input[type=submit],
-#songForm input[type=text]{
+form input[type=submit],
+form input[type=text]{
   border: 1px solid #cdcdcd;
   border-radius: 3px;
   background: #fff;
@@ -47,16 +47,16 @@ canvas {
   text-align: center;
 }
 
-#songForm input[type=text]{
+form input[type=text]{
   width: 300px;
 }
 
-#songForm input[type=submit]{
+form input[type=submit]{
   padding: 15px 30px;
   cursor:pointer;
 }
 
-#songForm input[type=submit]:hover{
+form input[type=submit]:hover{
   background: #543172;
   color: #fff;
 }

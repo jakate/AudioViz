@@ -11,22 +11,34 @@ var AudioPlayer = function(){
 
   this.getData = function(){
     analyser.getByteFrequencyData(dataArray);
-    var cleanData = _.reject(dataArray, function(item){
-      return item === 0 || item === 128;
-    });
+    //analyser.getByteTimeDomainData(dataArray);
 
     return {
-      spectrum: cleanData,
+      spectrum: dataArray,
       song: audioSource,
-      volume: getVolume(cleanData)
+      volume: getVolume(dataArray)
     };
   };
 
-  this.songLoaded = function(request, buffersize){
+  this.init = function(buffersize){
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = -10;
+    analyser.smoothingTimeConstant = 0.85;
+
     analyser.fftSize = buffersize;
     bufferLength = analyser.fftSize;
     dataArray = new Uint8Array(bufferLength);
     analyser.getByteTimeDomainData(dataArray);
+  };
+
+  this.micConnected = function(stream, buffersize){
+    audioSource = context.createMediaStreamSource(stream);
+    this.init(buffersize);
+    audioSource.connect(analyser);
+  };
+
+  this.songLoaded = function(request, buffersize){
+    this.init(buffersize);
 
     context.decodeAudioData(request.response, function(buffer) {
       playSound(buffer);
