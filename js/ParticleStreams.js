@@ -55,7 +55,7 @@ var ParticleStreams = function() {
     h = radius;
     k = radius;
     r = radius;
-  }
+  };
 
   this.update = function(colors, bpm, forceRadius){
     this.initSpeed(bpm);

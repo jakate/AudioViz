@@ -50,7 +50,7 @@ var VideoPlane = function(){
     }
 
     self.changeVideo();
-  }
+  };
 
   this.changeVideo = function(){
     if(!loop) {
@@ -70,7 +70,7 @@ var VideoPlane = function(){
 
     video.load();
     video.play();
-  }
+  };
 
   this.init = function(threeScene, blending, loopVideo, callback) {
     doneCallback = callback;

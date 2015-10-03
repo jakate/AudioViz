@@ -6,7 +6,7 @@ var ParticleStream = function(){
   this.update = function(color, pos){
     delta = clock.getDelta();
     emitter.position = new THREE.Vector3(pos.x, pos.y, pos.z);
-    emitter.colorStart = new THREE.Color(color),
+    emitter.colorStart = new THREE.Color(color);
     particleGroup.tick(delta);
   };
 

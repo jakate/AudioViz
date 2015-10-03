@@ -17,7 +17,7 @@ canvas {
   width: 400px;
   margin: 0 auto;
   display: block;
-  padding: 40vh 0;
+  padding: 40vh 0 0;
   text-align: center;
 }
 
@@ -69,10 +69,3 @@ form input[type=submit]:hover{
   background: #543172;
   color: #fff;
 }
-
-
-
-/* stats ----- */
-#stats { position: absolute; top:0; left: 0 }
-#stats #fps { background: transparent !important }
-#stats #fps #fpsText { color: #777 !important }

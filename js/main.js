@@ -1,8 +1,3 @@
-navigator.getUserMedia = (navigator.getUserMedia ||
-                          navigator.webkitGetUserMedia ||
-                          navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia);
-
 (function() {
   var micForm = document.getElementById("micForm");
   var songForm = document.getElementById("songForm");
@@ -14,18 +9,19 @@ navigator.getUserMedia = (navigator.getUserMedia ||
     formHolder.style.display = "none";
   }
 
-  micForm.addEventListener('submit', function(e) {
+  function submitSongForm(e) {
+    e.preventDefault();
+    startVisualization();
+    av.initLoadSong(e.target.elements.song.value);
+  }
+
+  function submitMicForm(e) {
     e.preventDefault();
     startVisualization();
     av.initMic();
-  });
+  }
 
-  songForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var song = e.target.elements.song.value;
-
-    startVisualization();
-    av.initLoadSong(song);
-  }, false);
+  songForm.addEventListener('submit', submitSongForm, false);
+  micForm.addEventListener('submit', submitMicForm, false);
 
 }());

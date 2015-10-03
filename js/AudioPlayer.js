@@ -68,6 +68,4 @@ var AudioPlayer = function(){
 
     return values / max;
   }
-
-
 };

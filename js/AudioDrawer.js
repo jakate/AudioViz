@@ -28,7 +28,7 @@ var AudioDrawer = function(){
     background.init(scene);
 
     colors = initColors;
-    this.changeMode(initModes)
+    this.changeMode(initModes);
   };
 
   this.resize = function() {

@@ -1,3 +1,8 @@
+navigator.getUserMedia = (navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia);
+
 var AudioVisualizer = function(){
 
   var self = this;

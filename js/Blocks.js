@@ -1,7 +1,5 @@
 var Blocks = function(){
-
   var scene, cube, mesh, holder;
-  var spot = -200;
   var boxAmount = 32;
   var boxSize = 8;
   var boxHeight = 8 * 2;
