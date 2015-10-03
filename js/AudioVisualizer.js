@@ -39,6 +39,9 @@ var AudioVisualizer = function(){
       function(stream) {
         audioPlayer.micConnected(stream, buffersize);
         self.tick();
+      },
+      function(err){
+        console.log(err);
       });
     } else {
        console.log('getUserMedia not supported on your browser!');
