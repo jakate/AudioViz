@@ -16,10 +16,43 @@ var AudioDrawer = function(){
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
+  var colors, modes;
+
+  this.init = function(initModes, initColors) {
+    colors = initColors;
+    modes = initModes;
+
+    container = document.createElement( 'div' );
+    document.body.appendChild( container );
+
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 15000 );
+    camera.position.z = 500;
+
+    scene = new THREE.Scene();
+    scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
+    scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
+
+    addRenderer();
+    addBackground();
+    addLights();
+
+    particleStreams.init(scene);
+    blocks.init(scene);
+    smoke.init(scene);
+  };
+
   this.resize = function() {
     renderer.setSize( window.innerWidth, window.innerHeight );
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+  };
+
+  this.changeMode = function(newModes) {
+    modes = newModes;
+  };
+
+  this.changeColors = function(newColors) {
+    colors = newColors;
   };
 
   this.blast = function() {
@@ -27,11 +60,11 @@ var AudioDrawer = function(){
     smoke.update();
   };
 
-  this.render = function(data, bpm, modes, colors) {
+  this.render = function(data, bpm) {
     // Background
     if(modes.background) {
       var lowPeak = 0;
-      var cutoff = 5; //Math.floor(data.spectrum.length * 0.5);
+      var cutoff = Math.floor(data.spectrum.length * 0.05);
       _.each(data.spectrum, function(spec, index){
         if(index < cutoff) {
           lowPeak = spec > lowPeak ? spec : lowPeak;
@@ -84,26 +117,6 @@ var AudioDrawer = function(){
     renderer.render(scene, camera);
 
     counter++;
-  };
-
-  this.init = function() {
-    container = document.createElement( 'div' );
-    document.body.appendChild( container );
-
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 15000 );
-    camera.position.z = 500;
-
-    scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
-    scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
-
-    addRenderer();
-    addBackground();
-    addLights();
-
-    particleStreams.init(scene);
-    blocks.init(scene);
-    smoke.init(scene);
   };
 
   function addBackground(){

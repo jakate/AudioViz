@@ -9,6 +9,11 @@ var AudioVisualizer = function(){
   var audioDrawer, data;
   var bpm = 80;
 
+  var tapTempo = 0;
+  var tapTempoTs = 0;
+  var modeChanged = false;
+  var colorChanged = false;
+
   var modes = {
     background: true,
     blocks: true,
@@ -28,23 +33,13 @@ var AudioVisualizer = function(){
 
   this.initMic = function(){
     if (navigator.getUserMedia) {
-       navigator.getUserMedia (
-          // constraints - only audio needed for this app
-          {
-             audio: true
-          },
-
-          // Success callback
-          function(stream) {
-             audioPlayer.micConnected(stream, buffersize);
-             self.tick();
-          },
-
-          // Error callback
-          function(err) {
-             console.log('The following gUM error occured: ' + err);
-          }
-       );
+      navigator.getUserMedia({
+        audio: true
+      },
+      function(stream) {
+        audioPlayer.micConnected(stream, buffersize);
+        self.tick();
+      });
     } else {
        console.log('getUserMedia not supported on your browser!');
     }
@@ -52,7 +47,7 @@ var AudioVisualizer = function(){
 
   this.init = function(songName){
     audioDrawer = new AudioDrawer();
-    audioDrawer.init();
+    audioDrawer.init(modes, colorSchemes[selectedSheme]);
     window.addEventListener("keydown", dealWithKeyboard, false);
   };
 
@@ -68,11 +63,9 @@ var AudioVisualizer = function(){
   this.tick = function(){
     requestAnimationFrame(self.tick);
     data = audioPlayer.getData();
-    audioDrawer.render(data, bpm, modes, colorSchemes[selectedSheme]);
+    audioDrawer.render(data, bpm);
   };
 
-  var tapTempo = 0;
-  var tapTempoTs = 0;
   function dealWithKeyboard(e) {
     switch(e.keyIdentifier) {
       case "U+0054":
@@ -83,37 +76,55 @@ var AudioVisualizer = function(){
         console.log(bpm + ' BPM');
         break;
       case "U+0031":
+        modeChanged = true;
         modes.background = modes.background === false;
         break;
       case "U+0032":
+        modeChanged = true;
         modes.blocks = modes.blocks === false;
         break;
       case "U+0033":
+        modeChanged = true;
         modes.circle = modes.circle === false;
         break;
       case "U+0034":
+        modeChanged = true;
         modes.flower = modes.flower === false;
         break;
       case "U+0035":
+        modeChanged = true;
         modes.smoke = modes.smoke === false;
         break;
       case "U+0036":
+        modeChanged = true;
         audioDrawer.blast();
         break;
 
       // Colors
       case "U+0041":
         selectedSheme = 0;
+        colorChanged = true;
         break;
       case "U+0053":
         selectedSheme = 1;
+        colorChanged = true;
         break;
       case "U+0044":
         selectedSheme = 2;
+        colorChanged = true;
         break;
       case "U+0046":
         selectedSheme = 3;
+        colorChanged = true;
         break;
+    }
+
+    if(modeChanged) {
+      audioDrawer.changeMode(modes);
+    }
+
+    if(colorChanged) {
+      audioDrawer.changeColors(colorSchemes[selectedSheme]);
     }
   }
 
