@@ -11,18 +11,21 @@ var AudioPlayer = function(){
 
   this.getData = function(){
     analyser.getByteFrequencyData(dataArray);
+    var cleanData = _.reject(dataArray, function(data){
+      return data === 0;
+    });
 
     return {
-      spectrum: dataArray,
+      spectrum: cleanData,
       song: audioSource,
-      volume: getVolume(dataArray)
+      volume: getVolume(cleanData)
     };
   };
 
   this.init = function(buffersize){
     analyser.minDecibels = -90;
     analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.85;
+    analyser.smoothingTimeConstant = 0.75;
 
     analyser.fftSize = buffersize;
     bufferLength = analyser.frequencyBinCount;
