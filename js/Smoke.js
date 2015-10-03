@@ -1,8 +1,5 @@
-/* global THREE, Circle, Particles, VideoPlane */
-
 var Smoke = function(){
   var scene, holder;
-  var video, videoImageContext, videoImage, videoTexture;
   var planes = [];
 
   this.hide = function() {

@@ -1,5 +1,3 @@
-/* global THREE, Particles, Blocks, ParticleStream, ParticleStreams */
-
 var AudioDrawer = function(){
 
   var camera, scene, renderer, container;

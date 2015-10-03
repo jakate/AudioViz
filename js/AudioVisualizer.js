@@ -1,5 +1,3 @@
-/* global AudioPlayer, AudioDrawer, AudioLoader, AudioDrawer2d*/
-
 var AudioVisualizer = function(){
 
   var self = this;

@@ -1,5 +1,3 @@
-/* global THREE, SPE */
-
 var ParticleStream = function(){
 
   var clock = new THREE.Clock(true);

@@ -1,5 +1,3 @@
-/* global THREE, Circle, Particles */
-
 var Background = function(){
 
   var backgroundLight, backgroundPlane;

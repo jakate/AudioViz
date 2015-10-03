@@ -1,5 +1,3 @@
-/* global THREE, ParticleStream */
-
 var ParticleStreams = function() {
 
   var scene;

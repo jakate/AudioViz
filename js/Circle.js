@@ -1,5 +1,3 @@
-/* global THREE, _ */
-
 var Circle = function(){
 
   var settings = {

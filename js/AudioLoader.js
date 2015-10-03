@@ -1,5 +1,3 @@
-/* global SpotifyWebApi */
-
 var AudioLoader = function(){
 
   var spotifyApi = new SpotifyWebApi();

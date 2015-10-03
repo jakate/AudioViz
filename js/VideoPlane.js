@@ -1,5 +1,3 @@
-/* global THREE */
-
 var VideoPlane = function(){
 
   var video, videoImageContext, videoImage, videoTexture, scene, movieScreen;

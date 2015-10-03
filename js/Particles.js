@@ -1,5 +1,3 @@
-/* global THREE */
-
 var Particles = function(){
 
   var particleSystem;

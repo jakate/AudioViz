@@ -1,5 +1,3 @@
-/* global AudioVisualizer*/
-
 navigator.getUserMedia = (navigator.getUserMedia ||
                           navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia ||

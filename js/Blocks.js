@@ -1,5 +1,3 @@
-/* global THREE, Circle, Particles */
-
 var Blocks = function(){
 
   var scene, cube, mesh, holder;
