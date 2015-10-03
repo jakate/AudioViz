@@ -4,6 +4,7 @@ var VideoPlane = function(){
   var loop = false;
   var self = this;
   var shouldHide = false;
+  var doneCallback;
 
   var videos = [
     'Field3Front.mp4',
@@ -20,6 +21,8 @@ var VideoPlane = function(){
     'Hit8front.mp4',
     'Hit9Front.mp4'
   ];
+
+  this.id = new Date().getTime() + Math.random() * 100;
 
   this.hide = function() {
     shouldHide = true;
@@ -52,6 +55,7 @@ var VideoPlane = function(){
   this.changeVideo = function(){
     if(!loop) {
       scene.remove(movieScreen);
+      doneCallback(this);
       return;
     }
 
@@ -68,7 +72,8 @@ var VideoPlane = function(){
     video.play();
   }
 
-  this.init = function(threeScene, blending, loopVideo) {
+  this.init = function(threeScene, blending, loopVideo, callback) {
+    doneCallback = callback;
     loop = loopVideo || false;
     scene = threeScene;
 
@@ -99,7 +104,7 @@ var VideoPlane = function(){
       movieMaterial.blending = blending;
     }
 
-    var movieGeometry = new THREE.PlaneGeometry(w, h, 0, 0);
+    var movieGeometry = new THREE.PlaneBufferGeometry(w, h, 0, 0);
     movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
     movieScreen.position.set(-80, 0, 0);
 

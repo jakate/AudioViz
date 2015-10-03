@@ -23,7 +23,7 @@ var Smoke = function(){
   this.blast = function() {
     // Add white smoke
     var videoPlane = new VideoPlane();
-    videoPlane.init(holder, THREE.AdditiveBlending, false);
+    videoPlane.init(holder, THREE.AdditiveBlending, false, doneCallback);
     planes.push(videoPlane);
   };
 
@@ -39,4 +39,10 @@ var Smoke = function(){
     videoPlane.init(holder, THREE.SubtractiveBlending, true);
     planes.push(videoPlane);
   };
+
+  function doneCallback(deletePlane){
+    planes = _.reject(planes, function(plane){
+      return deletePlane.id === plane.id;
+    });
+  }
 };
