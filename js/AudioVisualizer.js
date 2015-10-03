@@ -20,9 +20,9 @@ var AudioVisualizer = function(){
   var modes = {
     background: true,
     blocks: false,
-    circle: false,
+    circle: true,
     flower: false,
-    smoke: false
+    smoke: true
   };
 
   var colorSchemes = [
