@@ -43,7 +43,7 @@ var Blocks = function(){
       var toScale = scale < 0.01 ? 0.01 : scale;
       box.mesh.scale.y = toScale;
       box.mesh.position.y = boxHeight / 2 * toScale;
-      //box.mesh.rotation.y -= 0.05;
+      box.mesh.rotation.y -= 0.05;
     });
   };
 
