@@ -14,7 +14,7 @@ var ParticleStream = function(){
 
   this.init = function(scene, color, pos){
       particleGroup = new SPE.Group({
-        texture: THREE.ImageUtils.loadTexture('/img/smokeparticle.png'),
+        texture: THREE.ImageUtils.loadTexture('img/smokeparticle.png'),
         maxAge: 4,
         fog: false
       });
