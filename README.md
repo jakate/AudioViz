@@ -25,3 +25,10 @@ D = Colorscheme 4
 ```
 
 Videos from [Video Copilot](http://www.videocopilot.net/blog/2011/12/new-tutorial-and-free-stock-footage/)
+
+
+### Todo
+```
+[ ] Change the logic how the background layer works
+[ ] Autopilot mode
+```
