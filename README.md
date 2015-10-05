@@ -1,8 +1,7 @@
 # AudioViz
-Audio visualization
 
 Demo:
-[http://demos.jaakkotepponen.com/audioviz/](http://demos.jaakkotepponen.com/audioviz/)
+[demos.jaakkotepponen.com/audioviz/](http://demos.jaakkotepponen.com/audioviz/)
 
 ##Keyboard shortcuts:
 
