@@ -18,10 +18,10 @@ T = Tap to add tempo
 
 ###Colors
 ```
-a = Colorscheme 1
-b = Colorscheme 2
-c = Colorscheme 3
-d = Colorscheme 4
+A = Colorscheme 1
+B = Colorscheme 2
+C = Colorscheme 3
+D = Colorscheme 4
 ```
 
 Videos from [Video Copilot](http://www.videocopilot.net/blog/2011/12/new-tutorial-and-free-stock-footage/)
