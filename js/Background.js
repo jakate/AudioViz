@@ -26,18 +26,20 @@ var Background = function(){
     lowPeaks = lowPeaks.slice(0, 256)
     volumePeaks = volumePeaks.slice(0, 256)
 
-    lowPeaks.sort(compareNumbers).reverse();
-    volumePeaks.sort(compareNumbers).reverse();
+    lowPeaks.sort(compareNumbers);
+    volumePeaks.sort(compareNumbers);
 
     lowPeakThreshold = lowPeaks[Math.floor(lowPeaks.length * 0.99)];
     volumePeaksThreshold = volumePeaks[Math.floor(volumePeaks.length * 0.99)]
-    backgroundLight.color.setHex(colors[0]);
 
     if(lowPeak > lowPeakThreshold || data.volume > volumePeaksThreshold) {
-      backgroundLight.position.z = -199 + data.volume * 100;
+      backgroundLight.position.z = -199 + data.volume * 400; //-199 + data.volume * 100;
     } else {
-      backgroundLight.position.z = backgroundLight.position.z < -199 ? -199 : backgroundLight.position.z - 1;
+      var fadeSpeed = -2;
+      backgroundLight.position.z = backgroundLight.position.z < -199 ? -199 : backgroundLight.position.z + fadeSpeed;
     }
+
+    backgroundLight.color.setHex(colors[0]);
   };
 
   this.init = function(threeScene) {
