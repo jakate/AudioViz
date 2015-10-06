@@ -19,9 +19,9 @@ var AudioPlayer = function(){
   };
 
   this.init = function(buffersize){
-    analyser.minDecibels = -90;
-    analyser.maxDecibels = 0;
-    analyser.smoothingTimeConstant = 0.75;
+    //analyser.minDecibels = -90;
+    //analyser.maxDecibels = 0;
+    //analyser.smoothingTimeConstant = 0.75;
 
     analyser.fftSize = buffersize;
     bufferLength = analyser.frequencyBinCount;
