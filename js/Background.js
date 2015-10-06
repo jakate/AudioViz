@@ -1,7 +1,8 @@
 var Background = function(){
 
-  var backgroundLight, backgroundPlane;
+  var backgroundLight, backgroundPlane, lowPeakThreshold, volumePeaksThreshold, lowPeak, cutoff;
   var lowPeaks = [];
+  var volumePeaks = [];
 
   this.hide = function() {
     backgroundLight.position.z = 1000;
@@ -12,24 +13,27 @@ var Background = function(){
   };
 
   this.update = function(colors, data, bpm) {
-    var lowPeak = 0;
-    var cutoff = Math.floor(data.spectrum.length * 0.05);
+    lowPeak = 0;
+    cutoff = Math.floor(data.spectrum.length * 0.05);
     _.each(data.spectrum, function(spec, index){
       if(index < cutoff) {
         lowPeak = spec > lowPeak ? spec : lowPeak;
-        lowPeaks.push(spec);
+        lowPeaks.unshift(spec);
       }
     });
 
-    lowPeaks = _.uniq(lowPeaks);
-    lowPeaks.sort(function compareNumbers(a, b) {
-      return a - b;
-    });
+    volumePeaks.unshift(data.volume);
+    lowPeaks = lowPeaks.slice(0, 256)
+    volumePeaks = volumePeaks.slice(0, 256)
 
-    var lowPeakThreshold = lowPeaks[Math.floor(lowPeaks.length * 0.75)];
+    lowPeaks.sort(compareNumbers).reverse();
+    volumePeaks.sort(compareNumbers).reverse();
+
+    lowPeakThreshold = lowPeaks[Math.floor(lowPeaks.length * 0.99)];
+    volumePeaksThreshold = volumePeaks[Math.floor(volumePeaks.length * 0.99)]
     backgroundLight.color.setHex(colors[0]);
 
-    if(lowPeak > lowPeakThreshold) {
+    if(lowPeak > lowPeakThreshold || data.volume > volumePeaksThreshold) {
       backgroundLight.position.z = -199 + data.volume * 100;
     } else {
       backgroundLight.position.z = backgroundLight.position.z < -199 ? -199 : backgroundLight.position.z - 1;
@@ -56,5 +60,9 @@ var Background = function(){
     backgroundLight = new THREE.PointLight(0x0000ff, 1, 700, 3);
     backgroundLight.position.set(0, 0, -199);
     scene.add(backgroundLight);
+  }
+
+  function compareNumbers(a, b) {
+    return a - b;
   }
 };
