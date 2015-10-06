@@ -7,6 +7,7 @@ Demo:
 
 ### Effects
 ```
+0 = Toggle autoplay
 1 = Toggle background
 2 = Toggle bars
 3 = Toggle particle circle
@@ -29,4 +30,4 @@ Videos from [Video Copilot](http://www.videocopilot.net/blog/2011/12/new-tutoria
 
 ### Todo
 - [x] Change the logic how the background layer works
-- [ ] Autopilot mode
+- [x] Autopilot mode
