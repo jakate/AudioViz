@@ -28,7 +28,5 @@ Videos from [Video Copilot](http://www.videocopilot.net/blog/2011/12/new-tutoria
 
 
 ### Todo
-```
-[ ] Change the logic how the background layer works
-[ ] Autopilot mode
-```
+- [x] Change the logic how the background layer works
+- [ ] Autopilot mode
