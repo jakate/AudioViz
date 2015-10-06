@@ -1,8 +1,7 @@
 var ParticleStreams = function() {
 
   var scene;
-  var offserRadius = -200;
-  var origRadius = (window.innerWidth < window.innerHeight ? window.innerWidth + offserRadius : window.innerHeight + offserRadius) / 4;  //(window.innerWidth < window.innerHeight ? window.innerWidth - 50 : window.innerHeight - 50) / 4;
+  var origRadius = (window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight) / 4;
   var maxRadius, radius, h, k, r, holder;
 
   var lights = [
