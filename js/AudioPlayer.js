@@ -11,14 +11,10 @@ var AudioPlayer = function(){
 
   this.getData = function(){
     analyser.getByteFrequencyData(dataArray);
-    var cleanData = _.reject(dataArray, function(data){
-      return data === 0;
-    });
-
     return {
-      spectrum: cleanData,
+      spectrum: dataArray,
       song: audioSource,
-      volume: getVolume(cleanData)
+      volume: getVolume(dataArray)
     };
   };
 

@@ -1,8 +1,8 @@
 var Blocks = function(){
   var scene, cube, mesh, holder;
-  var boxAmount = 32;
-  var boxSize = 8;
-  var boxHeight = 8 * 2;
+  var boxAmount = 128;
+  var boxSize = 2;
+  var boxHeight = boxSize * 2;
   var boxes = [];
   var material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 50 } );
 
@@ -28,7 +28,7 @@ var Blocks = function(){
   };
 
   this.update = function(newColors, data) {
-    var diff = Math.floor(data.spectrum.length / boxes.length);
+    var diff = Math.round(data.spectrum.length / boxes.length);
 
     if(newColors !== colors) {
       colors = newColors;
@@ -39,11 +39,10 @@ var Blocks = function(){
     }
 
     _.each(boxes, function(box, index){
-      var scale = data.spectrum[diff * index] * 0.03;
+      var scale = data.spectrum[diff * index] * 0.1;
       var toScale = scale < 0.01 ? 0.01 : scale;
       box.mesh.scale.y = toScale;
       box.mesh.position.y = boxHeight / 2 * toScale;
-      box.mesh.rotation.y -= 0.05;
     });
   };
 
