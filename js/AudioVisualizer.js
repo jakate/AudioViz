@@ -53,8 +53,11 @@ var AudioVisualizer = function(){
     audioDrawer = new AudioDrawer();
     audioDrawer.init(modes, colorSchemes[selectedScheme]);
 
-    keyboardInput = new KeyboardInput();
+    var keyboardInput = new KeyboardInput();
     keyboardInput.init(this);
+
+    var midiInput = new MidiInput();
+    midiInput.init(this);
 
     window.addEventListener( 'resize', onWindowResize, false );
     function onWindowResize() {
