@@ -15,11 +15,6 @@ var AudioVisualizer = function(){
   var autoplay = false;
   var autoplayTimeout;
 
-  var tapTempo = 0;
-  var tapTempoTs = 0;
-  var modeChanged = false;
-  var colorChanged = false;
-
   var modes = {
     background: true,
     blocks: false,
@@ -35,7 +30,7 @@ var AudioVisualizer = function(){
     [0x00fa1d, 0x52fa00, 0xc2fa00, 0x2abc26]
   ];
 
-  var selectedSheme = 0;
+  var selectedScheme = 0;
 
   this.initMic = function(){
     if (navigator.getUserMedia) {
@@ -56,8 +51,10 @@ var AudioVisualizer = function(){
 
   this.init = function(songName){
     audioDrawer = new AudioDrawer();
-    audioDrawer.init(modes, colorSchemes[selectedSheme]);
-    window.addEventListener("keydown", dealWithKeyboard, false);
+    audioDrawer.init(modes, colorSchemes[selectedScheme]);
+
+    keyboardInput = new KeyboardInput();
+    keyboardInput.init(this);
 
     window.addEventListener( 'resize', onWindowResize, false );
     function onWindowResize() {
@@ -86,8 +83,8 @@ var AudioVisualizer = function(){
       modes[key] = rand;
     }
 
-    selectedSheme = Math.floor(Math.random()*colorSchemes.length)
-    audioDrawer.changeColors(colorSchemes[selectedSheme]);
+    selectedScheme = Math.floor(Math.random()*colorSchemes.length)
+    audioDrawer.changeColors(colorSchemes[selectedScheme]);
 
     audioDrawer.changeMode(modes);
 
@@ -107,68 +104,29 @@ var AudioVisualizer = function(){
     }
   }
 
-  function dealWithKeyboard(e) {
-    switch(e.keyCode) {
-      case 48:
-        toggleAutoPlay();
-        break;
-      case 84:
-        var tmpTime = new Date().getTime();
-        tapTempo = tmpTime - tapTempoTs;
-        tapTempoTs = tmpTime;
-        bpm = Math.round(1 / (tapTempo / 1000) * 60);
-        console.log(bpm + ' BPM');
-        break;
-      case 49:
-        modeChanged = true;
-        modes.background = modes.background === false;
-        break;
-      case 50:
-        modeChanged = true;
-        modes.blocks = modes.blocks === false;
-        break;
-      case 51:
-        modeChanged = true;
-        modes.circle = modes.circle === false;
-        break;
-      case 52:
-        modeChanged = true;
-        modes.flower = modes.flower === false;
-        break;
-      case 53:
-        modeChanged = true;
-        modes.smoke = modes.smoke === false;
-        break;
-      case 54:
-        modeChanged = true;
-        audioDrawer.blast();
-        break;
+  this.setColorScheme = function(colorScheme) {
+    selectedScheme = colorScheme;
+    audioDrawer.changeColors(colorSchemes[selectedScheme]);
+  };
 
-      // --- Colors ---
-      case 65:
-        selectedSheme = 0;
-        colorChanged = true;
-        break;
-      case 83:
-        selectedSheme = 1;
-        colorChanged = true;
-        break;
-      case 68:
-        selectedSheme = 2;
-        colorChanged = true;
-        break;
-      case 70:
-        selectedSheme = 3;
-        colorChanged = true;
-        break;
-    }
+  this.toggleMode = function(mode) {
+    modes[mode] = modes[mode] === false;
+    audioDrawer.changeMode(modes);
+  };
 
-    if(modeChanged) {
-      audioDrawer.changeMode(modes);
-    }
+  this.toggleAutoPlay = function() {
+    toggleAutoPlay();
+  }
 
-    if(colorChanged) {
-      audioDrawer.changeColors(colorSchemes[selectedSheme]);
-    }
+  this.triggerBlast = function() {
+    audioDrawer.blast();
+
+    // Is this required? It was called before refactoring
+    audioDrawer.changeMode(modes);
+  }
+
+  this.setBpm = function(beatsPerMinute) {
+    bpm = beatsPerMinute;
+    console.log(bpm + ' BPM');
   }
 };
