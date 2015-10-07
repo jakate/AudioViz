@@ -108,68 +108,56 @@ var AudioVisualizer = function(){
   }
 
   function dealWithKeyboard(e) {
-    switch(e.keyIdentifier) {
-      // Number 0
-      case "U+0030":
+    switch(e.keyCode) {
+      case 48:
         toggleAutoPlay();
         break;
-      // Number 1
-      case "U+0054":
+      case 84:
         var tmpTime = new Date().getTime();
         tapTempo = tmpTime - tapTempoTs;
         tapTempoTs = tmpTime;
         bpm = Math.round(1 / (tapTempo / 1000) * 60);
         console.log(bpm + ' BPM');
         break;
-      // Number 2
-      case "U+0031":
+      case 49:
         modeChanged = true;
         modes.background = modes.background === false;
         break;
-      // Number 3
-      case "U+0032":
+      case 50:
         modeChanged = true;
         modes.blocks = modes.blocks === false;
         break;
-      // Number 4
-      case "U+0033":
+      case 51:
         modeChanged = true;
         modes.circle = modes.circle === false;
         break;
-      // Number 5
-      case "U+0034":
+      case 52:
         modeChanged = true;
         modes.flower = modes.flower === false;
         break;
-      // Number 6
-      case "U+0035":
+      case 53:
         modeChanged = true;
         modes.smoke = modes.smoke === false;
         break;
-      // Number 7
-      case "U+0036":
+      case 54:
         modeChanged = true;
         audioDrawer.blast();
         break;
 
       // --- Colors ---
-      // A key
-      case "U+0041":
+      case 65:
         selectedSheme = 0;
         colorChanged = true;
         break;
-      // S key
-      case "U+0053":
+      case 83:
         selectedSheme = 1;
         colorChanged = true;
         break;
-      // D key
-      case "U+0044":
+      case 68:
         selectedSheme = 2;
         colorChanged = true;
         break;
-      // F key
-      case "U+0046":
+      case 70:
         selectedSheme = 3;
         colorChanged = true;
         break;

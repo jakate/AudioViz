@@ -3,16 +3,24 @@ var Background = function(){
   var backgroundLight, backgroundPlane, lowPeakThreshold, volumePeaksThreshold, lowPeak, cutoff;
   var lowPeaks = [];
   var volumePeaks = [];
+  var hidden = false;
+  var hideSpeed = 2;
 
   this.hide = function() {
-    backgroundLight.position.z = 1000;
+    hidden = true;
   };
 
   this.show = function() {
+    hidden = false;
     holder.position.z = 0;
   };
 
   this.update = function(colors, data, bpm) {
+    if(hidden) {
+      backgroundLight.position.z = backgroundLight.position.z < 1000 ? backgroundLight.position.z + hideSpeed : backgroundLight.position.z;
+      return;
+    }
+
     lowPeak = 0;
     cutoff = Math.floor(data.spectrum.length * 0.05);
     _.each(data.spectrum, function(spec, index){
