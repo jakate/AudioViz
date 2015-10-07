@@ -108,13 +108,15 @@ var AudioVisualizer = function(){
   }
 
   function dealWithKeyboard(e) {
-    switch(e.keyIdentifier) {
+    var key = String.fromCharCode(e.keyCode);
+
+    switch(key) {
       // Number 0
-      case "U+0030":
+      case '0':
         toggleAutoPlay();
         break;
       // Number 1
-      case "U+0054":
+      case '1':
         var tmpTime = new Date().getTime();
         tapTempo = tmpTime - tapTempoTs;
         tapTempoTs = tmpTime;
@@ -122,54 +124,54 @@ var AudioVisualizer = function(){
         console.log(bpm + ' BPM');
         break;
       // Number 2
-      case "U+0031":
+      case '2':
         modeChanged = true;
         modes.background = modes.background === false;
         break;
       // Number 3
-      case "U+0032":
+      case '3':
         modeChanged = true;
         modes.blocks = modes.blocks === false;
         break;
       // Number 4
-      case "U+0033":
+      case '4':
         modeChanged = true;
         modes.circle = modes.circle === false;
         break;
       // Number 5
-      case "U+0034":
+      case '5':
         modeChanged = true;
         modes.flower = modes.flower === false;
         break;
       // Number 6
-      case "U+0035":
+      case '6':
         modeChanged = true;
         modes.smoke = modes.smoke === false;
         break;
       // Number 7
-      case "U+0036":
+      case '7':
         modeChanged = true;
         audioDrawer.blast();
         break;
 
       // --- Colors ---
       // A key
-      case "U+0041":
+      case 'A':
         selectedSheme = 0;
         colorChanged = true;
         break;
       // S key
-      case "U+0053":
+      case 'S':
         selectedSheme = 1;
         colorChanged = true;
         break;
       // D key
-      case "U+0044":
+      case 'D':
         selectedSheme = 2;
         colorChanged = true;
         break;
       // F key
-      case "U+0046":
+      case 'F':
         selectedSheme = 3;
         colorChanged = true;
         break;
