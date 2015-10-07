@@ -27,7 +27,7 @@ var MidiInput = function() {
   }
 
   function messageHandler(event) {
-    var data = {
+    var message = {
       status: event.data[0] & 0xf0,
       data: [
         event.data[1],
@@ -35,21 +35,21 @@ var MidiInput = function() {
       ]
     };
 
-    handleInput(data);
-  }
-
-  function handleInput(data) {
     // Note on event
-    if (data.status === 144) {
-      var note = data.data[0];
-      var velocity = data.data[1];
-      console.log('Note on: ' + note + ', ' + velocity);
+    if (message.status === 144) {
+      handleNoteOn(message.data[0], message.data[1]);
 
     // Control change event
-    } else if (data.status === 176) {
-      var index = data.data[0];
-      var value = data.data[1];
-      console.log('Control change: ' + index + ', ' + value);
+    } else if (message.status === 176) {
+      handleControlChange(message.data[0], message.data[1]);
     }
+  }
+
+  function handleNoteOn(note, velocity) {
+    console.log('Note on: ' + note + ', ' + velocity);
+  }
+
+  function handleControlChange(index, value) {
+    console.log('Control change: ' + index + ', ' + value);
   }
 };
