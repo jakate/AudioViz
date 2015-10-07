@@ -12,7 +12,9 @@ var ParticleStreams = function() {
   ];
 
   var speed, stepLength, step;
-  var radiusDirection = 1.001;
+  var origRadiusDirection = 1.001;
+  var radiusDirection = origRadiusDirection;
+  var hidden = false;
 
   this.init = function(threeScene){
     scene = threeScene;
@@ -32,11 +34,11 @@ var ParticleStreams = function() {
   };
 
   this.hide = function(){
-    holder.position.z = 1000;
+    hidden = true;
   };
 
   this.show = function(){
-    holder.position.z = 0;
+    hidden = false;
   };
 
   this.countRadius = function(forceRadius) {
@@ -60,12 +62,23 @@ var ParticleStreams = function() {
     this.initSpeed(bpm);
     this.countRadius(forceRadius);
 
+    if(hidden){
+      if(holder.position.z < 2000) {
+        holder.position.z += 10;
+      }
+    } else {
+      if(holder.position.z > 0) {
+        holder.position.z -= 10;
+      }
+    }
+
     _.each(lights, function(lightObj, index){
       var x = h + r * Math.cos(lightObj.theta);
       var y = k - r * Math.sin(lightObj.theta);
 
       lightObj.light.color.setHex(colors[index]);
 
+      lightObj.light.position.z = -199;
       lightObj.light.position.x = x - radius;
       lightObj.light.position.y = y - radius;
 
