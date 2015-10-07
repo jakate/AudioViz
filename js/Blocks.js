@@ -19,15 +19,31 @@ var Blocks = function(){
   var step = 2*Math.PI/boxAmount;
   var theta = step * (boxAmount / 4) * -1;
 
+  var hidden = false;
+  var hideSpeed = 6;
+
   this.hide = function() {
-    holder.position.z = 1000;
+    hidden = true;
   };
 
   this.show = function() {
-    holder.position.z = 0;
+    hidden = false;
   };
 
   this.update = function(newColors, data) {
+    if(hidden){
+      _.each(boxes, function(box, index){
+        var toScale = box.mesh.scale.y * 0.9;
+        box.mesh.scale.y = toScale;
+        box.mesh.position.y = boxHeight / 2 * toScale;
+      });
+
+      holder.position.z = holder.position.z < 2000 ? holder.position.z + hideSpeed : holder.position.z;
+      return
+    } else {
+      holder.position.z = holder.position.z > 0 ? holder.position.z - hideSpeed : holder.position.z;
+    }
+
     var diff = Math.round(data.spectrum.length / boxes.length);
 
     if(newColors !== colors) {
