@@ -15,6 +15,7 @@ var ParticleStreams = function() {
   var origRadiusDirection = 1.001;
   var radiusDirection = origRadiusDirection;
   var hidden = false;
+  var hideSpeed = 20;
 
   this.init = function(threeScene){
     scene = threeScene;
@@ -63,12 +64,12 @@ var ParticleStreams = function() {
     this.countRadius(forceRadius);
 
     if(hidden){
-      if(holder.position.z < 2000) {
-        holder.position.z += 10;
+      if(holder.position.z < 1000) {
+        holder.position.z += hideSpeed;
       }
     } else {
       if(holder.position.z > 0) {
-        holder.position.z -= 10;
+        holder.position.z -= hideSpeed;
       }
     }
 

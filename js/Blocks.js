@@ -20,7 +20,7 @@ var Blocks = function(){
   var theta = step * (boxAmount / 4) * -1;
 
   var hidden = false;
-  var hideSpeed = 6;
+  var hideSpeed = 20;
 
   this.hide = function() {
     hidden = true;
@@ -38,7 +38,7 @@ var Blocks = function(){
         box.mesh.position.y = boxHeight / 2 * toScale;
       });
 
-      holder.position.z = holder.position.z < 2000 ? holder.position.z + hideSpeed : holder.position.z;
+      holder.position.z = holder.position.z < 600 ? holder.position.z + hideSpeed : holder.position.z;
       return
     } else {
       holder.position.z = holder.position.z > 0 ? holder.position.z - hideSpeed : holder.position.z;
