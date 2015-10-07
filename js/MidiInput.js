@@ -37,19 +37,30 @@ var MidiInput = function() {
 
     // Note on event
     if (message.status === 144) {
-      handleNoteOn(message.data[0], message.data[1]);
+      this.handleNoteOn(message.data[0], message.data[1]);
 
     // Control change event
     } else if (message.status === 176) {
-      handleControlChange(message.data[0], message.data[1]);
+      this.handleControlChange(message.data[0], message.data[1]);
     }
   }
 
-  function handleNoteOn(note, velocity) {
-    console.log('Note on: ' + note + ', ' + velocity);
+  this.handleNoteOn = function(note, velocity) {
+    // Note 36 triggers blast
+    if (note === 36) {
+      this.visualizer.triggerBlast();
+    }
   }
 
-  function handleControlChange(index, value) {
-    console.log('Control change: ' + index + ', ' + value);
+  this.handleControlChange = function(index, value) {
+    // First controller defines BPM
+    if (index === 1) {
+      var minBpm = 20;
+      var maxBpm = 480;
+
+      var bpm = Math.round(((value / 127) * (maxBpm - minBpm)) + minBpm);
+
+      this.visualizer.setBpm(bpm);
+    }
   }
 };
