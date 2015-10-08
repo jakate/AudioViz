@@ -7,10 +7,11 @@ var AudioDrawer = function(){
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
-  var colors, modes;
+  var colors, modes, controls, clock;
 
   this.init = function(initModes, initColors) {
-    container = document.createElement( 'div' );
+    clock = new THREE.Clock(true);
+    container = document.createElement('div');
     document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 15000 );
@@ -29,6 +30,9 @@ var AudioDrawer = function(){
 
     colors = initColors;
     this.changeMode(initModes);
+
+    //For debugging
+    //addControls();
   };
 
   this.resize = function() {
@@ -75,6 +79,12 @@ var AudioDrawer = function(){
   };
 
   this.render = function(data, bpm) {
+    delta = clock.getDelta();
+
+    if(controls) {
+      controls.update(delta);
+    }
+
     if(modes.flower) {
       particleStreams.update(colors, 10, 60);
     } else {
@@ -88,6 +98,15 @@ var AudioDrawer = function(){
 
     counter++;
   };
+
+  function addControls() {
+    controls = new THREE.FlyControls(camera);
+    controls.movementSpeed = 1000;
+    controls.domElement = container;
+    controls.rollSpeed = Math.PI / 24;
+    controls.autoForward = false;
+    controls.dragToLook = true;
+  }
 
   function addRenderer(){
     renderer = new THREE.WebGLRenderer( { antialias: false, alpha: false } );
