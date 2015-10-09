@@ -3,10 +3,10 @@ var ParticleStream = function(){
   var clock = new THREE.Clock(true);
   var particleGroup, emitter, delta;
 
-  this.update = function(color, pos){
+  this.update = function(intensity, color, pos){
     delta = clock.getDelta();
     emitter.position = new THREE.Vector3(pos.x, pos.y, pos.z);
-    emitter.colorStart = new THREE.Color(color);
+    emitter.colorStart = new THREE.Color(color).multiplyScalar(intensity);
     particleGroup.tick(delta);
   };
 

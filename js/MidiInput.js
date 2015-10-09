@@ -59,12 +59,14 @@ var MidiInput = function() {
     } else if (note === 41) {
       this.visualizer.triggerBlast();
     } else if (note === 42) {
+      this.visualizer.toggleAutoPlay();
     } else if (note === 43) {
       this.visualizer.setRandomColorScheme();
     }
   }
 
   this.handleControlChange = function(index, value) {
+    console.log(index + ' ' + value);
     // First controller defines BPM
     if (index === 1) {
       var minBpm = -500;
@@ -73,6 +75,8 @@ var MidiInput = function() {
       var bpm = Math.round(((value / 127) * (maxBpm - minBpm)) + minBpm);
 
       this.visualizer.setBpm(bpm);
+    } else if(index === 2){
+      this.visualizer.setIntencity(value / 127);
     }
   }
 };

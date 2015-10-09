@@ -59,7 +59,7 @@ var ParticleStreams = function() {
     r = radius;
   };
 
-  this.update = function(colors, bpm, forceRadius){
+  this.update = function(intensity, colors, bpm, forceRadius){
     this.initSpeed(bpm);
     this.countRadius(forceRadius);
 
@@ -82,10 +82,11 @@ var ParticleStreams = function() {
       lightObj.light.position.z = -199;
       lightObj.light.position.x = x - radius;
       lightObj.light.position.y = y - radius;
+      lightObj.light.intensity = intensity;
 
       lightObj.theta += step;
 
-      lightObj.stream.update(colors[index], lightObj.light.position);
+      lightObj.stream.update(intensity, colors[index], lightObj.light.position);
     });
 
     r = r + radiusDirection;

@@ -78,7 +78,7 @@ var AudioDrawer = function(){
     smoke.update();
   };
 
-  this.render = function(data, bpm) {
+  this.render = function(data, bpm, intensity) {
     delta = clock.getDelta();
 
     if(controls) {
@@ -86,9 +86,9 @@ var AudioDrawer = function(){
     }
 
     if(modes.flower) {
-      particleStreams.update(colors, 10, 60);
+      particleStreams.update(intensity, colors, 10, 60);
     } else {
-      particleStreams.update(colors, bpm);
+      particleStreams.update(intensity, colors, bpm);
     }
 
     background.update(colors, data, bpm);
