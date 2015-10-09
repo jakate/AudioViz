@@ -46,19 +46,21 @@ var MidiInput = function() {
   }
 
   this.handleNoteOn = function(note, velocity) {
-    // Note 36 triggers blast
-    if (note === 36) {
-      this.visualizer.triggerBlast();
-    } else if (note === 37) {
+    if(note === 36) {
       this.visualizer.toggleMode('background');
-    } else if (note === 38) {
+    } else if (note === 37) {
       this.visualizer.toggleMode('blocks');
-    } else if (note === 39) {
+    } else if (note === 38) {
       this.visualizer.toggleMode('circle');
-    } else if (note === 40) {
+    } else if (note === 39) {
       this.visualizer.toggleMode('flower');
-    } else if (note === 41) {
+    } else if (note === 40) {
       this.visualizer.toggleMode('smoke');
+    } else if (note === 41) {
+      this.visualizer.triggerBlast();
+    } else if (note === 42) {
+    } else if (note === 43) {
+      this.visualizer.setRandomColorScheme();
     }
   }
 

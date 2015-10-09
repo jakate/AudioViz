@@ -107,6 +107,10 @@ var AudioVisualizer = function(){
     }
   }
 
+  this.setRandomColorScheme = function() {
+    this.setColorScheme(Math.floor(Math.random() * colorSchemes.length));
+  };
+
   this.setColorScheme = function(colorScheme) {
     selectedScheme = colorScheme;
     audioDrawer.changeColors(colorSchemes[selectedScheme]);
