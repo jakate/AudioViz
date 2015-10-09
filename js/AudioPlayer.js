@@ -3,7 +3,8 @@ var AudioPlayer = function(){
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   var context = new window.AudioContext();
   var analyser = context.createAnalyser();
-  var audioSource,bufferLength,dataArray;
+  var gainNode = context.createGain();
+  var audioSource, bufferLength, dataArray, gainNode;
 
   this.stop = function(){
     audioSource.stop();
@@ -34,6 +35,10 @@ var AudioPlayer = function(){
     audioSource.connect(analyser);
   };
 
+  this.setVolume = function(vol){
+    gainNode.gain.value = vol;
+  };
+
   this.songLoaded = function(request, buffersize){
     this.init(buffersize);
 
@@ -48,8 +53,9 @@ var AudioPlayer = function(){
   function playSound(buffer) {
     audioSource = context.createBufferSource();
     audioSource.buffer = buffer;
-    audioSource.connect(context.destination);
-    audioSource.connect(analyser);
+    audioSource.connect(gainNode);
+    gainNode.connect(context.destination);
+    gainNode.connect(analyser);
     audioSource.start(0);
   }
 

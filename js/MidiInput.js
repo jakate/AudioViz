@@ -1,6 +1,7 @@
 var MidiInput = function() {
-  this.init = function(visualizer) {
+  this.init = function(visualizer, audioPlayer) {
     this.visualizer = visualizer;
+    this.audioPlayer = audioPlayer;
 
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess().then(onMidiSuccess.bind(this), onMidiReject);
@@ -66,7 +67,6 @@ var MidiInput = function() {
   }
 
   this.handleControlChange = function(index, value) {
-    console.log(index + ' ' + value);
     // First controller defines BPM
     if (index === 1) {
       var minBpm = -500;
@@ -77,6 +77,8 @@ var MidiInput = function() {
       this.visualizer.setBpm(bpm);
     } else if(index === 2){
       this.visualizer.setIntencity(value / 127);
+    } else if(index === 3){
+      this.audioPlayer.setVolume(value/127);
     }
   }
 };

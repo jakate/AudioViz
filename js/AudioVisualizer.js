@@ -58,7 +58,7 @@ var AudioVisualizer = function(){
     keyboardInput.init(this);
 
     var midiInput = new MidiInput();
-    midiInput.init(this);
+    midiInput.init(this, audioPlayer);
 
     window.addEventListener( 'resize', onWindowResize, false );
     function onWindowResize() {
