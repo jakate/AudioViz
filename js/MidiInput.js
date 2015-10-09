@@ -49,14 +49,24 @@ var MidiInput = function() {
     // Note 36 triggers blast
     if (note === 36) {
       this.visualizer.triggerBlast();
+    } else if (note === 37) {
+      this.visualizer.toggleMode('background');
+    } else if (note === 38) {
+      this.visualizer.toggleMode('blocks');
+    } else if (note === 39) {
+      this.visualizer.toggleMode('circle');
+    } else if (note === 40) {
+      this.visualizer.toggleMode('flower');
+    } else if (note === 41) {
+      this.visualizer.toggleMode('smoke');
     }
   }
 
   this.handleControlChange = function(index, value) {
     // First controller defines BPM
     if (index === 1) {
-      var minBpm = 20;
-      var maxBpm = 480;
+      var minBpm = -500;
+      var maxBpm = 500;
 
       var bpm = Math.round(((value / 127) * (maxBpm - minBpm)) + minBpm);
 
