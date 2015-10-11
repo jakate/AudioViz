@@ -3,6 +3,9 @@ var ParticleStreams = function() {
   var scene;
   var maxRadius, radius, r, holder;
 
+  var clock = new THREE.Clock(true);
+  var particleGroup;
+
   var lights = [
     {light: null, color: 0xffffff, stream: null},
     {light: null, color: 0xffffff, stream: null},
@@ -91,15 +94,25 @@ var ParticleStreams = function() {
       r < maxRadius * -1) {
       radiusDirection = radiusDirection * -1;
     }
+
+
+    particleGroup.tick(clock.getDelta());
   };
 
   function addParticles() {
     addLights();
 
+    particleGroup = new SPE.Group({
+      texture: THREE.ImageUtils.loadTexture('img/smokeparticle.png'),
+      maxAge: 3,
+      fog: false
+    });
+
+    scene.add( particleGroup.mesh );
+
     _.each(lights, function(lightObj){
       var particles = new ParticleStream();
-      particles.init(holder, lightObj.color, lightObj.light.position);
-
+      particles.init(particleGroup, lightObj.light.position);
       lightObj.stream = particles;
     });
   }

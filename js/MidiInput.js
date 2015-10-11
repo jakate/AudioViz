@@ -1,8 +1,5 @@
 var MidiInput = function() {
   this.init = function() {
-    //this.visualizer = visualizer;
-    //this.audioPlayer = audioPlayer;
-
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess().then(onMidiSuccess.bind(this), onMidiReject);
     } else {
@@ -100,10 +97,6 @@ var MidiInput = function() {
       value = Math.round(value * 500);
       Settings.emitterSet('velocityZ', value);
     }
-
-    /*else if(index === 5) {
-      Settings.set('manualRadius', value);
-    }*/
 
     // First controller defines BPM
     /*if (index === 1) {
