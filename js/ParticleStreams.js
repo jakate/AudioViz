@@ -94,7 +94,6 @@ var ParticleStreams = function() {
       radiusDirection = radiusDirection * -1;
     }
 
-
     particleGroup.tick(clock.getDelta());
   };
 

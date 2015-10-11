@@ -18,8 +18,8 @@ var AudioDrawer = function(){
     camera.position.z = 500;
 
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
-    scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
+    //scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
+    //scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
 
     addRenderer();
 
@@ -99,12 +99,12 @@ var AudioDrawer = function(){
 
   function addRenderer(){
     renderer = new THREE.WebGLRenderer( { antialias: false, alpha: false } );
-    renderer.setClearColor( scene.fog.color );
+    //renderer.setClearColor( scene.fog.color );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
     container.appendChild( renderer.domElement );
 
-    renderer.gammaInput = true;
-    renderer.gammaOutput = true;
+    /*renderer.gammaInput = true;
+    renderer.gammaOutput = true;*/
   }
 };
