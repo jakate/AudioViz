@@ -2,7 +2,7 @@ var ParticleStreams = function() {
 
   var scene;
   var origRadius = (window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight) / 4;
-  var maxRadius, radius, h, k, r, holder;
+  var maxRadius, radius, r, holder;
 
   var lights = [
     {light: null, color: 0xffffff, stream: null},
@@ -29,7 +29,8 @@ var ParticleStreams = function() {
   };
 
   this.initSpeed = function(bpm) {
-    speed = bpm / 10;
+    speed = Settings.getSettings().speed;
+    //speed = bpm / 10;
     stepLength = 1000 / speed;
     step = 2 * Math.PI / stepLength;
   };
@@ -43,6 +44,12 @@ var ParticleStreams = function() {
   };
 
   this.countRadius = function(forceRadius) {
+    if(Settings.getSettings().manualRadius) {
+      radius = Settings.getSettings().radius;
+      r = radius;
+      return;
+    }
+
     if(!forceRadius) {
       forceRadius = origRadius;
     }
@@ -54,8 +61,6 @@ var ParticleStreams = function() {
 
     maxRadius = forceRadius * offset;
     radius = forceRadius;
-    h = radius;
-    k = radius;
     r = radius;
   };
 
@@ -74,8 +79,8 @@ var ParticleStreams = function() {
     }
 
     _.each(lights, function(lightObj, index){
-      var x = h + r * Math.cos(lightObj.theta);
-      var y = k - r * Math.sin(lightObj.theta);
+      var x = radius + r * Math.cos(lightObj.theta);
+      var y = radius - r * Math.sin(lightObj.theta);
 
       lightObj.light.color.setHex(colors[index]);
 

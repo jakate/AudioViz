@@ -11,7 +11,10 @@ var AudioVisualizer = function(){
   var buffersize = 256;
   var audioDrawer, data;
   var bpm = 80;
-  var intensity = 1;
+
+  var settings = {
+    intensity: 1
+  }
 
   var autoplay = false;
   var autoplayTimeout;
@@ -19,7 +22,7 @@ var AudioVisualizer = function(){
   var modes = {
     background: true,
     blocks: false,
-    circle: false,
+    circle: true,
     flower: false,
     smoke: false
   };
@@ -78,7 +81,7 @@ var AudioVisualizer = function(){
   this.tick = function(){
     requestAnimationFrame(self.tick);
     data = audioPlayer.getData();
-    audioDrawer.render(data, bpm, intensity);
+    audioDrawer.render(data, bpm, Settings.getSettings().intensity);
   };
 
   function autoplaySwitch() {
@@ -128,13 +131,10 @@ var AudioVisualizer = function(){
 
   this.triggerBlast = function() {
     audioDrawer.blast();
-
-    // Is this required? It was called before refactoring
-    audioDrawer.changeMode(modes);
   };
 
-  this.setIntencity = function(intens) {
-    intensity = intens;
+  this.setIntencity = function(intensity) {
+    Settings.getSettings().intensity = intensity;
   };
 
   this.setBpm = function(beatsPerMinute) {
