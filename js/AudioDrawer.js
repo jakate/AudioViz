@@ -7,9 +7,9 @@ var AudioDrawer = function(){
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
-  var colors, controls, clock;
+  var controls, clock;
 
-  this.init = function(initColors) {
+  this.init = function() {
     clock = new THREE.Clock(true);
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -27,8 +27,6 @@ var AudioDrawer = function(){
     blocks.init(scene);
     smoke.init(scene);
     background.init(scene);
-
-    colors = initColors;
 
     //For debugging
     //addControls();
@@ -68,10 +66,6 @@ var AudioDrawer = function(){
     }
   };
 
-  this.changeColors = function(newColors) {
-    colors = newColors;
-  };
-
   this.blast = function() {
     smoke.blast();
     smoke.update();
@@ -85,9 +79,9 @@ var AudioDrawer = function(){
       controls.update(delta);
     }
 
-    particleStreams.update(colors);
-    background.update(colors, data, bpm);
-    blocks.update(colors, data);
+    particleStreams.update();
+    background.update(data, bpm);
+    blocks.update(data);
     smoke.update();
     renderer.render(scene, camera);
 

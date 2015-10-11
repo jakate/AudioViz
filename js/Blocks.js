@@ -25,7 +25,8 @@ var Blocks = function(){
     hidden = false;
   };
 
-  this.update = function(newColors, data) {
+  this.update = function(data) {
+    var newColors = Settings.getCurrentColors();
     if(hidden){
       _.each(boxes, function(box, index){
         var toScale = box.mesh.scale.y * 0.9;

@@ -14,15 +14,6 @@ var AudioVisualizer = function(){
   var autoplay = false;
   var autoplayTimeout;
 
-  var colorSchemes = [
-    [0x0000ff, 0xff0099, 0x00ff22, 0xff9900],
-    [0x3C75D2, 0x3C91D2, 0x62CCF9, 0x0D429A],
-    [0xe51e5b, 0xe51e9c, 0xe5301e, 0xe56d1e],
-    [0x00fa1d, 0x52fa00, 0xc2fa00, 0x2abc26]
-  ];
-
-  var selectedScheme = 0;
-
   this.initMic = function(){
     if (navigator.getUserMedia) {
       navigator.getUserMedia({
@@ -42,7 +33,7 @@ var AudioVisualizer = function(){
 
   this.init = function(songName){
     audioDrawer = new AudioDrawer();
-    audioDrawer.init(colorSchemes[selectedScheme]);
+    audioDrawer.init();
 
     var keyboardInput = new KeyboardInput();
     keyboardInput.init(this);
@@ -66,15 +57,6 @@ var AudioVisualizer = function(){
     requestAnimationFrame(self.tick);
     data = audioPlayer.getData();
     audioDrawer.render(data, bpm);
-  };
-
-  this.setRandomColorScheme = function() {
-    this.setColorScheme(Math.floor(Math.random() * colorSchemes.length));
-  };
-
-  this.setColorScheme = function(colorScheme) {
-    selectedScheme = colorScheme;
-    audioDrawer.changeColors(colorSchemes[selectedScheme]);
   };
 
   this.triggerBlast = function() {

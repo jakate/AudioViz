@@ -56,33 +56,14 @@ var MidiInput = function() {
     } else if(note === 39) {
       Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
     } else if(note === 40) {
-      // this.visualizer.setRandomColorScheme();
       Settings.modeSet('xx5', Settings.modeGet('xx5') === false);
     } else if(note === 41) {
       Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
     } else if(note === 42) {
-      Settings.modeSet('xx7', Settings.modeGet('xx7') === false);
-    } else if(note === 43) {
       Settings.set('manualRadius', Settings.get('manualRadius') === false);
+    } else if(note === 43) {
+      Settings.setNextColorScheme();
     }
-
-    /*if(note === 36) {
-      this.visualizer.toggleMode('background');
-    } else if (note === 37) {
-      this.visualizer.toggleMode('blocks');
-    } else if (note === 38) {
-      this.visualizer.toggleMode('circle');
-    } else if (note === 39) {
-      this.visualizer.toggleMode('flower');
-    } else if (note === 40) {
-      this.visualizer.toggleMode('smoke');
-    } else if (note === 41) {
-      this.visualizer.triggerBlast();
-    } else if (note === 42) {
-      this.visualizer.toggleAutoPlay();
-    } else if (note === 43) {
-      this.visualizer.setRandomColorScheme();
-    }*/
   }
 
   this.handleControlChange = function(index, val) {

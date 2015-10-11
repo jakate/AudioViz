@@ -25,7 +25,16 @@ var SettingsSingleton = function(){
     //velocityX: 0,
     velocityY: 0,
     velocityZ: 0
-  }
+  };
+
+  var colorSchemes = [
+    [0x0000ff, 0xff0099, 0x00ff22, 0xff9900],
+    [0x3C75D2, 0x3C91D2, 0x62CCF9, 0x0D429A],
+    [0xe51e5b, 0xe51e9c, 0xe5301e, 0xe56d1e],
+    [0x00fa1d, 0x52fa00, 0xc2fa00, 0x2abc26]
+  ];
+
+  var selectedScheme = 0;
 
   var gui = new dat.GUI();
   gui.add(settings, 'speed', -40, 40).step(1).listen();
@@ -73,6 +82,26 @@ var SettingsSingleton = function(){
   this.modeSet = function(key, value){
     console.log('set mode ' + key + ' ' + value);
     modes[key] = value;
+  };
+
+  /* Colors */
+  this.setColorScheme = function(num) {
+    selectedScheme = num;
+    return this.getCurrentColors();
+  };
+
+  this.setRandomColorScheme = function() {
+    selectedScheme = Math.floor(Math.random() * colorSchemes.length);
+    return this.getCurrentColors();
+  };
+
+  this.setNextColorScheme = function() {
+    selectedScheme = selectedScheme === colorSchemes.length-1 ? 0 : selectedScheme + 1;
+    return this.getCurrentColors();
+  };
+
+  this.getCurrentColors = function(){
+    return colorSchemes[selectedScheme];
   };
 
 }

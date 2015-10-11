@@ -54,7 +54,8 @@ var ParticleStreams = function() {
     }
   };
 
-  this.update = function(colors){
+  this.update = function(){
+    var colors = Settings.getCurrentColors();
     this.initSpeed();
     this.checkRadius();
 

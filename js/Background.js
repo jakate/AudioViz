@@ -15,7 +15,8 @@ var Background = function(){
     holder.position.z = 0;
   };
 
-  this.update = function(colors, data, bpm) {
+  this.update = function(data, bpm) {
+    var colors = Settings.getCurrentColors();
     if(hidden) {
       backgroundLight.position.z = backgroundLight.position.z < 1000 ? backgroundLight.position.z + hideSpeed : backgroundLight.position.z;
       return;
