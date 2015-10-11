@@ -1,7 +1,6 @@
 var ParticleStreams = function() {
 
   var scene;
-  var origRadius = (window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight) / 4;
   var maxRadius, radius, r, holder;
 
   var lights = [
@@ -21,16 +20,21 @@ var ParticleStreams = function() {
     scene = threeScene;
 
     this.initSpeed(80);
-    this.countRadius(origRadius);
+
+    // Count the max radius of the circle
+    var forceRadius = Settings.get('origRadius');
+    var offset = 2.5;
+    maxRadius = forceRadius * offset;
+    radius = forceRadius;
+    r = radius;
 
     holder = new THREE.Object3D();
     scene.add(holder);
     addParticles();
   };
 
-  this.initSpeed = function(bpm) {
-    speed = Settings.getSettings().speed;
-    //speed = bpm / 10;
+  this.initSpeed = function() {
+    speed = Settings.get('speed');
     stepLength = 1000 / speed;
     step = 2 * Math.PI / stepLength;
   };
@@ -43,30 +47,16 @@ var ParticleStreams = function() {
     hidden = false;
   };
 
-  this.countRadius = function(forceRadius) {
-    if(Settings.getSettings().manualRadius) {
-      radius = Settings.getSettings().radius;
+  this.checkRadius = function() {
+    if(Settings.get('manualRadius')) {
+      radius = Settings.get('radius');
       r = radius;
-      return;
     }
-
-    if(!forceRadius) {
-      forceRadius = origRadius;
-    }
-
-    var offset = 2.5;
-    if(forceRadius*offset === maxRadius) {
-      return;
-    }
-
-    maxRadius = forceRadius * offset;
-    radius = forceRadius;
-    r = radius;
   };
 
-  this.update = function(intensity, colors, bpm, forceRadius){
-    this.initSpeed(bpm);
-    this.countRadius(forceRadius);
+  this.update = function(colors){
+    this.initSpeed();
+    this.checkRadius();
 
     if(hidden){
       if(holder.position.z < 1000) {
@@ -78,6 +68,7 @@ var ParticleStreams = function() {
       }
     }
 
+    var intensity = Settings.get('intensity');
     _.each(lights, function(lightObj, index){
       var x = radius + r * Math.cos(lightObj.theta);
       var y = radius - r * Math.sin(lightObj.theta);
@@ -88,7 +79,6 @@ var ParticleStreams = function() {
       lightObj.light.position.x = x - radius;
       lightObj.light.position.y = y - radius;
       lightObj.light.intensity = intensity;
-
       lightObj.theta += step;
 
       lightObj.stream.update(intensity, colors[index], lightObj.light.position);

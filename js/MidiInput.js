@@ -76,7 +76,7 @@ var MidiInput = function() {
 
       this.visualizer.setBpm(bpm);
     } else if(index === 2){
-      this.visualizer.setIntencity(value / 127);
+      Settings.set('intensity', value / 127);
     } else if(index === 3){
       this.audioPlayer.setVolume(value/127);
     }

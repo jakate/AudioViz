@@ -11,11 +11,6 @@ var AudioVisualizer = function(){
   var buffersize = 256;
   var audioDrawer, data;
   var bpm = 80;
-
-  var settings = {
-    intensity: 1
-  }
-
   var autoplay = false;
   var autoplayTimeout;
 
@@ -81,7 +76,7 @@ var AudioVisualizer = function(){
   this.tick = function(){
     requestAnimationFrame(self.tick);
     data = audioPlayer.getData();
-    audioDrawer.render(data, bpm, Settings.getSettings().intensity);
+    audioDrawer.render(data, bpm);
   };
 
   function autoplaySwitch() {
@@ -131,10 +126,6 @@ var AudioVisualizer = function(){
 
   this.triggerBlast = function() {
     audioDrawer.blast();
-  };
-
-  this.setIntencity = function(intensity) {
-    Settings.getSettings().intensity = intensity;
   };
 
   this.setBpm = function(beatsPerMinute) {

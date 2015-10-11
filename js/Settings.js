@@ -3,6 +3,7 @@ var SettingsSingleton = function(){
   var origRadius = (window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight) / 4;
 
   var settings = {
+    origRadius: origRadius,
     intensity: 1,
     speed: 10,
     radius: origRadius,
@@ -21,6 +22,7 @@ var SettingsSingleton = function(){
   var gui = new dat.GUI();
   gui.add(settings, 'speed', -40, 40).step(1);
   gui.add(settings, 'radius', 0, 500).step(1);
+  gui.add(settings, 'intensity', 0, 1);
 
   gui.add(emitterSettings, 'positionSpread', 0, 500).step(1);
   gui.add(emitterSettings, 'sizeStart', 1, 300).step(1);
@@ -28,11 +30,14 @@ var SettingsSingleton = function(){
   gui.add(emitterSettings, 'velocityX', -300, 300).step(1);
   gui.add(emitterSettings, 'velocityY', -300, 300).step(1);
   gui.add(emitterSettings, 'velocityZ', -300, 300).step(1);
-  gui.add(settings, 'intensity', 0, 1);
 
-  this.getSettings = function(){
-    return settings;
-  }
+  this.get = function(key) {
+    return settings[key];
+  };
+
+  this.set = function(key, value){
+    settings[key] = value;
+  };
 
   this.getEmitterSettings = function(){
     return emitterSettings;
