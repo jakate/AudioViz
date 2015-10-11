@@ -9,7 +9,6 @@ var ParticleStreams = function() {
   var lights = [
     {light: null, color: 0xffffff, stream: null},
     {light: null, color: 0xffffff, stream: null},
-    {light: null, color: 0xffffff, stream: null},
     {light: null, color: 0xffffff, stream: null}
   ];
 
@@ -124,7 +123,7 @@ var ParticleStreams = function() {
       holder.add(backgroundLight);
 
       light.light = backgroundLight;
-      light.theta = (step * index * 5) * (stepLength / 4) * -1;
+      light.theta = (step * index * 5) * (stepLength / lights.length) * -1;
     });
   }
 
