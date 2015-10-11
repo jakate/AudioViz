@@ -7,9 +7,9 @@ var AudioDrawer = function(){
   var particleStreams = new ParticleStreams();
   var counter = 0;
 
-  var colors, modes, controls, clock;
+  var colors, controls, clock;
 
-  this.init = function(initModes, initColors) {
+  this.init = function(initColors) {
     clock = new THREE.Clock(true);
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -29,7 +29,6 @@ var AudioDrawer = function(){
     background.init(scene);
 
     colors = initColors;
-    this.changeMode(initModes);
 
     //For debugging
     //addControls();
@@ -41,8 +40,8 @@ var AudioDrawer = function(){
     camera.updateProjectionMatrix();
   };
 
-  this.changeMode = function(newModes) {
-    modes = newModes;
+  this.checkModes = function() {
+    modes = Settings.getModes();
 
     if(modes.background === false){
       background.hide();
@@ -79,6 +78,7 @@ var AudioDrawer = function(){
   };
 
   this.render = function(data, bpm) {
+    this.checkModes();
     delta = clock.getDelta();
 
     if(controls) {

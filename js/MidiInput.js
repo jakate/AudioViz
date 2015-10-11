@@ -1,7 +1,7 @@
 var MidiInput = function() {
-  this.init = function(visualizer, audioPlayer) {
-    this.visualizer = visualizer;
-    this.audioPlayer = audioPlayer;
+  this.init = function() {
+    //this.visualizer = visualizer;
+    //this.audioPlayer = audioPlayer;
 
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess().then(onMidiSuccess.bind(this), onMidiReject);
@@ -48,6 +48,25 @@ var MidiInput = function() {
 
   this.handleNoteOn = function(note, velocity) {
     if(note === 36) {
+      Settings.modeSet('background', Settings.modeGet('background') === false);
+    } else if(note === 37) {
+      Settings.modeSet('blocks', Settings.modeGet('blocks') === false);
+    } else if(note === 38) {
+      Settings.modeSet('circle', Settings.modeGet('circle') === false);
+    } else if(note === 39) {
+      Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
+    } else if(note === 40) {
+      // this.visualizer.setRandomColorScheme();
+      Settings.modeSet('xx5', Settings.modeGet('xx5') === false);
+    } else if(note === 41) {
+      Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
+    } else if(note === 42) {
+      Settings.modeSet('xx7', Settings.modeGet('xx7') === false);
+    } else if(note === 43) {
+      Settings.set('manualRadius', Settings.get('manualRadius') === false);
+    }
+
+    /*if(note === 36) {
       this.visualizer.toggleMode('background');
     } else if (note === 37) {
       this.visualizer.toggleMode('blocks');
@@ -63,22 +82,60 @@ var MidiInput = function() {
       this.visualizer.toggleAutoPlay();
     } else if (note === 43) {
       this.visualizer.setRandomColorScheme();
-    }
+    }*/
   }
 
-  this.handleControlChange = function(index, value) {
+  this.handleControlChange = function(index, val) {
+    var value = val / 127;
+    if(index === 1) {
+      value = Math.round((value - 0.5) * 40 * 2);
+      Settings.set('speed', value);
+    }
+    else if(index === 2) {
+      value = Math.round(value * 500);
+      Settings.set('radius', value);
+    }
+    else if(index === 3) {
+      Settings.set('intensity', value);
+    }
+    else if(index === 4) {
+      value = Math.round(value * 500);
+      Settings.emitterSet('positionSpread', value);
+    }
+    else if(index === 5) {
+      value = Math.round(value * 299) + 1;
+      Settings.emitterSet('sizeStart', value);
+    }
+    else if(index === 6) {
+      value = Math.round(value * 299) + 1;
+      Settings.emitterSet('sizeEnd', value);
+    }
+    else if(index === 7) {
+      //Settings.emitterSet('velocityX', (value - 0.5) * 300 * 2);
+      value = Math.round((value - 0.5) * 300 * 2);
+      Settings.emitterSet('velocityY', value);
+    }
+    else if(index === 8) {
+      value = Math.round(value * 500);
+      Settings.emitterSet('velocityZ', value);
+    }
+
+    /*else if(index === 5) {
+      Settings.set('manualRadius', value);
+    }*/
+
     // First controller defines BPM
-    if (index === 1) {
+    /*if (index === 1) {
       var minBpm = -500;
       var maxBpm = 500;
 
       var bpm = Math.round(((value / 127) * (maxBpm - minBpm)) + minBpm);
 
-      this.visualizer.setBpm(bpm);
+      //this.visualizer.setBpm(bpm);
     } else if(index === 2){
       Settings.set('intensity', value / 127);
     } else if(index === 3){
-      this.audioPlayer.setVolume(value/127);
-    }
+      //this.audioPlayer.setVolume(value/127);
+    }*/
   }
 };

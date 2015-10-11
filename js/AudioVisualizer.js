@@ -14,14 +14,6 @@ var AudioVisualizer = function(){
   var autoplay = false;
   var autoplayTimeout;
 
-  var modes = {
-    background: true,
-    blocks: false,
-    circle: true,
-    flower: false,
-    smoke: false
-  };
-
   var colorSchemes = [
     [0x0000ff, 0xff0099, 0x00ff22, 0xff9900],
     [0x3C75D2, 0x3C91D2, 0x62CCF9, 0x0D429A],
@@ -50,15 +42,12 @@ var AudioVisualizer = function(){
 
   this.init = function(songName){
     audioDrawer = new AudioDrawer();
-    audioDrawer.init(modes, colorSchemes[selectedScheme]);
+    audioDrawer.init(colorSchemes[selectedScheme]);
 
     var keyboardInput = new KeyboardInput();
     keyboardInput.init(this);
 
-    var midiInput = new MidiInput();
-    midiInput.init(this, audioPlayer);
-
-    window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener('resize', onWindowResize, false);
     function onWindowResize() {
       audioDrawer.resize();
     }
@@ -79,33 +68,6 @@ var AudioVisualizer = function(){
     audioDrawer.render(data, bpm);
   };
 
-  function autoplaySwitch() {
-    for (var key in modes) {
-      var rand = Math.random() >= 0.5;
-      modes[key] = rand;
-    }
-
-    selectedScheme = Math.floor(Math.random()*colorSchemes.length)
-    audioDrawer.changeColors(colorSchemes[selectedScheme]);
-
-    audioDrawer.changeMode(modes);
-
-    var delay = 2000 + Math.floor(Math.random() * 10000);
-    autoplayTimeout = setTimeout(autoplaySwitch, delay);
-  }
-
-  function toggleAutoPlay() {
-    if(autoplay === true) {
-      clearTimeout(autoplayTimeout)
-    }
-
-    autoplay = autoplay === false;
-
-    if(autoplay === true){
-      autoplaySwitch()
-    }
-  }
-
   this.setRandomColorScheme = function() {
     this.setColorScheme(Math.floor(Math.random() * colorSchemes.length));
   };
@@ -113,15 +75,6 @@ var AudioVisualizer = function(){
   this.setColorScheme = function(colorScheme) {
     selectedScheme = colorScheme;
     audioDrawer.changeColors(colorSchemes[selectedScheme]);
-  };
-
-  this.toggleMode = function(mode) {
-    modes[mode] = modes[mode] === false;
-    audioDrawer.changeMode(modes);
-  };
-
-  this.toggleAutoPlay = function() {
-    toggleAutoPlay();
   };
 
   this.triggerBlast = function() {

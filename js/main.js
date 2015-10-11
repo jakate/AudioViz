@@ -4,6 +4,9 @@
   var formHolder = document.getElementById("formHolder");
   var av = new AudioVisualizer();
 
+  var midiInput = new MidiInput();
+  midiInput.init();
+
   function startVisualization(){
     av.init();
     formHolder.style.display = "none";
