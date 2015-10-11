@@ -24,25 +24,24 @@ var KeyboardInput = function() {
     switch(key) {
       // --- Effects ---
       case '0':
-        this.visualizer.toggleAutoPlay();
+        // toggleAutoPlay
         break;
       case '1':
-        this.visualizer.toggleMode('background');
+        Settings.modeSet('background', Settings.modeGet('background') === false);
         break;
       case '2':
-        this.visualizer.toggleMode('blocks');
+        Settings.modeSet('blocks', Settings.modeGet('blocks') === false);
         break;
       case '3':
-        this.visualizer.toggleMode('circle');
+        Settings.modeSet('circle', Settings.modeGet('circle') === false);
         break;
       case '4':
-        this.visualizer.toggleMode('flower');
+        Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
         break;
       case '5':
-        this.visualizer.toggleMode('smoke');
         break;
       case '6':
-        this.visualizer.triggerBlast();
+        //this.visualizer.triggerBlast();
         break;
 
       // --- Tap tempo ---
@@ -53,16 +52,16 @@ var KeyboardInput = function() {
 
       // --- Colors ---
       case 'A':
-        this.visualizer.setColorScheme(0);
+      Settings.setColorScheme(0);
         break;
       case 'S':
-        this.visualizer.setColorScheme(1);
+      Settings.setColorScheme(1);
         break;
       case 'D':
-        this.visualizer.setColorScheme(2);
+      Settings.setColorScheme(2);
         break;
       case 'F':
-        this.visualizer.setColorScheme(3);
+      Settings.setColorScheme(3);
         break;
     }
   }
