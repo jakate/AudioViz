@@ -45,17 +45,17 @@ var MidiInput = function() {
 
   this.handleNoteOn = function(note, velocity) {
     if(note === 36) {
-      Settings.modeSet('background', Settings.modeGet('background') === false);
+      //Settings.modeSet('background', Settings.modeGet('background') === false);
     } else if(note === 37) {
       Settings.modeSet('blocks', Settings.modeGet('blocks') === false);
     } else if(note === 38) {
       Settings.modeSet('circle', Settings.modeGet('circle') === false);
     } else if(note === 39) {
-      Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
+      //Settings.modeSet('xx5', Settings.modeGet('xx5') === false);
     } else if(note === 40) {
-      Settings.modeSet('xx5', Settings.modeGet('xx5') === false);
+      Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
     } else if(note === 41) {
-      Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
+      //Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
     } else if(note === 42) {
       Settings.set('manualRadius', Settings.get('manualRadius') === false);
     } else if(note === 43) {
@@ -102,14 +102,9 @@ var MidiInput = function() {
     /*if (index === 1) {
       var minBpm = -500;
       var maxBpm = 500;
-
       var bpm = Math.round(((value / 127) * (maxBpm - minBpm)) + minBpm);
 
       //this.visualizer.setBpm(bpm);
-    } else if(index === 2){
-      Settings.set('intensity', value / 127);
-    } else if(index === 3){
-      //this.audioPlayer.setVolume(value/127);
     }*/
   }
 };

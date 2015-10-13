@@ -1,7 +1,7 @@
 var ParticleStreams = function() {
 
   var scene;
-  var maxRadius, radius, r, holder;
+  var maxRadius, radius, r, x, y, holder;
 
   var clock = new THREE.Clock(true);
   var particleGroup;
@@ -73,17 +73,15 @@ var ParticleStreams = function() {
 
     var intensity = Settings.get('intensity');
     _.each(lights, function(lightObj, index){
-      var x = radius + r * Math.cos(lightObj.theta);
-      var y = radius - r * Math.sin(lightObj.theta);
+      x = radius + r * Math.cos(lightObj.theta);
+      y = radius - r * Math.sin(lightObj.theta);
 
-      lightObj.light.color.setHex(colors[index]);
-
-      lightObj.light.position.z = -199;
-      lightObj.light.position.x = x - radius;
-      lightObj.light.position.y = y - radius;
+      lightObj.light.position.x = x - radius
+      lightObj.light.position.y = y - radius
       lightObj.light.intensity = intensity;
       lightObj.theta += step;
 
+      lightObj.light.color.setHex(colors[index]);
       lightObj.stream.update(intensity, colors[index], lightObj.light.position);
     });
 
@@ -106,7 +104,7 @@ var ParticleStreams = function() {
       fog: false
     });
 
-    scene.add( particleGroup.mesh );
+    holder.add( particleGroup.mesh );
 
     _.each(lights, function(lightObj){
       var particles = new ParticleStream();
@@ -125,5 +123,4 @@ var ParticleStreams = function() {
       light.theta = (step * index * 5) * (stepLength / lights.length) * -1;
     });
   }
-
 };
