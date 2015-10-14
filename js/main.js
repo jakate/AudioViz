@@ -9,7 +9,7 @@
 
   function startVisualization(){
     av.init();
-    formHolder.style.display = "none";
+    //formHolder.style.display = "none";
   }
 
   function submitSongForm(e) {
@@ -24,7 +24,14 @@
     av.initMic();
   }
 
-  songForm.addEventListener('submit', submitSongForm, false);
-  micForm.addEventListener('submit', submitMicForm, false);
+  function init(){
+    startVisualization();
+    av.initMic();
+  }
+
+  init();
+
+  //songForm.addEventListener('submit', submitSongForm, false);
+  //micForm.addEventListener('submit', submitMicForm, false);
 
 }());

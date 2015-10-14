@@ -56,16 +56,16 @@ var KeyboardInput = function() {
 
       // --- Colors ---
       case 'A':
-      Settings.setColorScheme(0);
+        Settings.setColorScheme(0);
         break;
       case 'S':
-      Settings.setColorScheme(1);
+        Settings.setColorScheme(1);
         break;
       case 'D':
-      Settings.setColorScheme(2);
+        Settings.setColorScheme(2);
         break;
       case 'F':
-      Settings.setColorScheme(3);
+        Settings.setColorScheme(3);
         break;
     }
   }

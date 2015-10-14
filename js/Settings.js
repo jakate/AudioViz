@@ -43,16 +43,24 @@ var SettingsSingleton = function(){
 
   var selectedScheme = 0;
 
-  var gui = new dat.GUI();
-  gui.add(settings, 'speed', ranges.speed[0], ranges.speed[1]).step(1).listen();
-  gui.add(settings, 'radius', ranges.radius[0], ranges.radius[1]).step(1).listen();
-  gui.add(settings, 'intensity', ranges.intensity[0], ranges.intensity[1]).listen();
 
-  gui.add(settings, 'positionSpread', ranges.positionSpread[0], ranges.positionSpread[1]).step(1).listen();
-  gui.add(settings, 'sizeStart', ranges.sizeStart[0], ranges.sizeStart[1]).step(1).listen();
-  gui.add(settings, 'sizeEnd', ranges.sizeEnd[0], ranges.sizeEnd[1]).step(1).listen();
-  gui.add(settings, 'velocityY', ranges.velocityY[0], ranges.velocityY[1]).step(1).listen();
-  gui.add(settings, 'velocityZ', ranges.velocityZ[0], ranges.velocityZ[1]).step(1).listen();
+  var gui = new dat.GUI();
+  dat.GUI.toggleHide();
+
+  // Letter 'H' toggles gui
+  setTimeout(function(){
+    gui.add(settings, 'speed', ranges.speed[0], ranges.speed[1]).step(1).listen();
+    gui.add(settings, 'radius', ranges.radius[0], ranges.radius[1]).step(1).listen();
+    gui.add(settings, 'intensity', ranges.intensity[0], ranges.intensity[1]).listen();
+
+    gui.add(settings, 'positionSpread', ranges.positionSpread[0], ranges.positionSpread[1]).step(1).listen();
+    gui.add(settings, 'sizeStart', ranges.sizeStart[0], ranges.sizeStart[1]).step(1).listen();
+    gui.add(settings, 'sizeEnd', ranges.sizeEnd[0], ranges.sizeEnd[1]).step(1).listen();
+    gui.add(settings, 'velocityY', ranges.velocityY[0], ranges.velocityY[1]).step(1).listen();
+    gui.add(settings, 'velocityZ', ranges.velocityZ[0], ranges.velocityZ[1]).step(1).listen();
+
+  },1000);
+
 
   /* Ranges */
   this.getRange = function(key) {
