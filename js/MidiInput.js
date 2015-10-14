@@ -45,15 +45,15 @@ var MidiInput = function() {
 
   this.handleNoteOn = function(note, velocity) {
     if(note === 36) {
-      //Settings.modeSet('background', Settings.modeGet('background') === false);
+      Settings.modeSet('background', Settings.modeGet('background') === false);
     } else if(note === 37) {
       Settings.modeSet('blocks', Settings.modeGet('blocks') === false);
     } else if(note === 38) {
       Settings.modeSet('circle', Settings.modeGet('circle') === false);
     } else if(note === 39) {
-      //Settings.modeSet('xx5', Settings.modeGet('xx5') === false);
+      JEvents.dispatchEvent('SMOKE', {color:'black'});
     } else if(note === 40) {
-      Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
+      JEvents.dispatchEvent('SMOKE', {color:'white'});
     } else if(note === 41) {
       //Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
     } else if(note === 42) {
@@ -65,37 +65,39 @@ var MidiInput = function() {
 
   this.handleControlChange = function(index, val) {
     var value = val / 127;
-    if(index === 1) {
-      value = Math.round((value - 0.5) * 40 * 2);
-      Settings.set('speed', value);
+    var key = null;
+
+    switch(index) {
+      case 1 :
+        key = 'speed';
+        break;
+      case 2 :
+        key = 'radius';
+        break;
+      case 3 :
+        key = 'intensity';
+        break;
+      case 4 :
+        key = 'positionSpread';
+        break;
+      case 5 :
+        key = 'sizeStart';
+        break;
+      case 6 :
+        key = 'sizeEnd';
+        break;
+      case 7 :
+        key = 'velocityY';
+        break;
+      case 8 :
+        key = 'velocityZ';
+        break;
     }
-    else if(index === 2) {
-      value = Math.round(value * 500);
-      Settings.set('radius', value);
-    }
-    else if(index === 3) {
-      Settings.set('intensity', value);
-    }
-    else if(index === 4) {
-      value = Math.round(value * 500);
-      Settings.emitterSet('positionSpread', value);
-    }
-    else if(index === 5) {
-      value = Math.round(value * 299) + 1;
-      Settings.emitterSet('sizeStart', value);
-    }
-    else if(index === 6) {
-      value = Math.round(value * 299) + 1;
-      Settings.emitterSet('sizeEnd', value);
-    }
-    else if(index === 7) {
-      //Settings.emitterSet('velocityX', (value - 0.5) * 300 * 2);
-      value = Math.round((value - 0.5) * 300 * 2);
-      Settings.emitterSet('velocityY', value);
-    }
-    else if(index === 8) {
-      value = Math.round(value * 500);
-      Settings.emitterSet('velocityZ', value);
+
+    if(key) {
+      var range = Settings.getRange(key);
+      value = (value * (range[1] - range[0])) - range[0];
+      Settings.set(key, value);
     }
 
     // First controller defines BPM

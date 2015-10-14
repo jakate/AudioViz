@@ -7,10 +7,6 @@ var VideoPlane = function(){
   var doneCallback;
 
   var videos = [
-    'Field3Front.mp4',
-    'Field4Front.mp4',
-    'Field5Front.mp4',
-    'Hit10Front.mp4',
     'Hit1Front.mp4',
     'Hit2Front.mp4',
     'Hit3Front.mp4',
@@ -78,6 +74,7 @@ var VideoPlane = function(){
     scene = threeScene;
 
     var selectedVideo = videos[Math.floor(Math.random() * videos.length)];
+    console.log(selectedVideo);
     video = document.createElement( 'video' );
     this.playVideo(selectedVideo);
     video.onended = this.videoEndedEvent;

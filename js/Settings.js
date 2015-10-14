@@ -2,6 +2,17 @@ var SettingsSingleton = function(){
 
   var origRadius = (window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight) / 4;
 
+  var ranges = {
+    speed: [-40, 40],
+    radius: [0, 500],
+    intensity: [0, 1],
+    positionSpread: [0, 500],
+    sizeStart: [1, 300],
+    sizeEnd: [1, 300],
+    velocityY: [-300, 300],
+    velocityZ: [0, 500]
+  };
+
   var modes = {
     background: true,
     blocks: false,
@@ -15,14 +26,10 @@ var SettingsSingleton = function(){
     intensity: 1,
     speed: 10,
     radius: origRadius,
-    manualRadius: false
-  };
-
-  var emitterSettings = {
-    positionSpread: 1,
-    sizeStart: 20,
-    sizeEnd: 70,
-    //velocityX: 0,
+    manualRadius: false,
+    positionSpread: 0,
+    sizeStart: 10,
+    sizeEnd: 10,
     velocityY: 0,
     velocityZ: 0
   };
@@ -37,18 +44,21 @@ var SettingsSingleton = function(){
   var selectedScheme = 0;
 
   var gui = new dat.GUI();
-  gui.add(settings, 'speed', -40, 40).step(1).listen();
-  gui.add(settings, 'radius', 0, 500).step(1).listen();
-  gui.add(settings, 'intensity', 0, 1).listen();
+  gui.add(settings, 'speed', ranges.speed[0], ranges.speed[1]).step(1).listen();
+  gui.add(settings, 'radius', ranges.radius[0], ranges.radius[1]).step(1).listen();
+  gui.add(settings, 'intensity', ranges.intensity[0], ranges.intensity[1]).listen();
 
-  gui.add(emitterSettings, 'positionSpread', 0, 500).step(1).listen();
-  gui.add(emitterSettings, 'sizeStart', 1, 300).step(1).listen();
-  gui.add(emitterSettings, 'sizeEnd', 1, 300).step(1).listen();
-  //gui.add(emitterSettings, 'velocityX', -300, 300).step(1).listen();
-  gui.add(emitterSettings, 'velocityY', -300, 300).step(1).listen();
-  gui.add(emitterSettings, 'velocityZ', 0, 500).step(1).listen();
+  gui.add(settings, 'positionSpread', ranges.positionSpread[0], ranges.positionSpread[1]).step(1).listen();
+  gui.add(settings, 'sizeStart', ranges.sizeStart[0], ranges.sizeStart[1]).step(1).listen();
+  gui.add(settings, 'sizeEnd', ranges.sizeEnd[0], ranges.sizeEnd[1]).step(1).listen();
+  gui.add(settings, 'velocityY', ranges.velocityY[0], ranges.velocityY[1]).step(1).listen();
+  gui.add(settings, 'velocityZ', ranges.velocityZ[0], ranges.velocityZ[1]).step(1).listen();
 
-  /* Partice settings */
+  /* Ranges */
+  this.getRange = function(key) {
+    return ranges[key];
+  };
+
   this.get = function(key) {
     return settings[key];
   };
@@ -56,19 +66,6 @@ var SettingsSingleton = function(){
   this.set = function(key, value){
     settings[key] = value;
   };
-
-  /* Emitter settings */
-  this.emitterSet = function(key, value){
-    emitterSettings[key] = value;
-  }
-
-  this.emitterGet = function(key){
-    return emitterSettings[key];
-  }
-
-  this.getEmitterSettings = function(){
-    return emitterSettings;
-  }
 
   /* Modes */
   this.modeGet = function(key) {

@@ -20,10 +20,15 @@ var Smoke = function(){
     });
   };
 
-  this.blast = function() {
-    // Add white smoke
+  this.blast = function(event) {
     var videoPlane = new VideoPlane();
-    videoPlane.init(holder, THREE.AdditiveBlending, false, doneCallback);
+
+    if(event.color === 'white') {
+      videoPlane.init(holder, THREE.AdditiveBlending, false, doneCallback);
+    } else {
+      videoPlane.init(holder, THREE.SubtractiveBlending, false, doneCallback);
+    }
+
     planes.push(videoPlane);
   };
 
@@ -34,10 +39,7 @@ var Smoke = function(){
     holder.position.z = 0;
     scene.add(holder);
 
-    // Looping black smoke
-    var videoPlane = new VideoPlane();
-    videoPlane.init(holder, THREE.SubtractiveBlending, true);
-    planes.push(videoPlane);
+    JEvents.addEventListener(this, 'SMOKE', this.blast);
   };
 
   function doneCallback(deletePlane){

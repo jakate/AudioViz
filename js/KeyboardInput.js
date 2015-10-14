@@ -36,12 +36,13 @@ var KeyboardInput = function() {
         Settings.modeSet('circle', Settings.modeGet('circle') === false);
         break;
       case '4':
-        Settings.modeSet('smoke', Settings.modeGet('smoke') === false);
+        Settings.set('manualRadius', Settings.get('manualRadius') === false);
         break;
       case '5':
+        JEvents.dispatchEvent('SMOKE', {color:'black'});
         break;
       case '6':
-        //this.visualizer.triggerBlast();
+        JEvents.dispatchEvent('SMOKE', {color:'white'});
         break;
 
       // --- Tap tempo ---
