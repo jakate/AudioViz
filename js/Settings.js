@@ -10,7 +10,7 @@ var SettingsSingleton = function(){
     sizeStart: [1, 300],
     sizeEnd: [1, 300],
     velocityY: [-300, 300],
-    velocityZ: [0, 500]
+    velocityZ: [0, 1000]
   };
 
   var modes = {
