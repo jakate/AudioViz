@@ -74,7 +74,6 @@ var VideoPlane = function(){
     scene = threeScene;
 
     var selectedVideo = videos[Math.floor(Math.random() * videos.length)];
-    console.log(selectedVideo);
     video = document.createElement( 'video' );
     this.playVideo(selectedVideo);
     video.onended = this.videoEndedEvent;

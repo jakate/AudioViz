@@ -44,6 +44,9 @@ var KeyboardInput = function() {
       case '6':
         JEvents.dispatchEvent('SMOKE', {color:'white'});
         break;
+      case '7':
+        JEvents.dispatchEvent('BLAST');
+        break;
 
       // --- Tap tempo ---
       case 'T':

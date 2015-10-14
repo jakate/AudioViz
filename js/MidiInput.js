@@ -55,7 +55,7 @@ var MidiInput = function() {
     } else if(note === 40) {
       JEvents.dispatchEvent('SMOKE', {color:'white'});
     } else if(note === 41) {
-      //Settings.modeSet('xx6', Settings.modeGet('xx6') === false);
+      JEvents.dispatchEvent('BLAST');
     } else if(note === 42) {
       Settings.set('manualRadius', Settings.get('manualRadius') === false);
     } else if(note === 43) {

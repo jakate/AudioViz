@@ -5,6 +5,7 @@ var ParticleStreams = function() {
 
   var clock = new THREE.Clock(true);
   var particleGroup;
+  var blast = false;
 
   var lights = [
     {light: null, color: 0xffffff, stream: null},
@@ -33,10 +34,17 @@ var ParticleStreams = function() {
     holder = new THREE.Object3D();
     scene.add(holder);
     addParticles();
+
+    JEvents.addEventListener(this, 'BLAST', this.blast);
   };
 
+  this.blast = function(){
+    blast = true;
+    setTimeout(function(){ blast = false; }, 300);
+  }
+
   this.initSpeed = function() {
-    speed = Settings.get('speed');
+    speed = blast === true ? 100 : Settings.get('speed');
     stepLength = 1000 / speed;
     step = 2 * Math.PI / stepLength;
   };
