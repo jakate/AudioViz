@@ -5,6 +5,7 @@ var AudioDrawer = function(){
   var smoke = new Smoke();
   var background = new Background();
   var particleStreams = new ParticleStreams();
+  var chili = new Chilicorn();
   var counter = 0;
 
   var controls, clock;
@@ -27,6 +28,7 @@ var AudioDrawer = function(){
     blocks.init(scene);
     smoke.init(scene);
     background.init(scene);
+    //chili.init(scene);
 
     //For debugging
     //addControls();
@@ -83,6 +85,7 @@ var AudioDrawer = function(){
     background.update(data, bpm);
     blocks.update(data);
     smoke.update();
+    //chili.update();
     renderer.render(scene, camera);
 
     counter++;

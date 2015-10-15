@@ -96,7 +96,7 @@ var MidiInput = function() {
 
     if(key) {
       var range = Settings.getRange(key);
-      value = (value * (range[1] - range[0])) - range[0];
+      value = (value * (range[1] - range[0])) + range[0];
       Settings.set(key, value);
     }
 
