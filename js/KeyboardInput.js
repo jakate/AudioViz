@@ -39,16 +39,13 @@ var KeyboardInput = function() {
         Settings.set('manualRadius', Settings.get('manualRadius') === false);
         break;
       case '5':
-        JEvents.dispatchEvent('SMOKE', {color:'black'});
+        JEvents.dispatchEvent('SMOKE');
         break;
       case '6':
-        JEvents.dispatchEvent('SMOKE', {color:'white'});
+        Settings.modeSet('chili', Settings.modeGet('chili') === false);
         break;
       case '7':
         JEvents.dispatchEvent('BLAST');
-        break;
-      case '8':
-        Settings.modeSet('chili', Settings.modeGet('chili') === false);
         break;
 
       // --- Tap tempo ---

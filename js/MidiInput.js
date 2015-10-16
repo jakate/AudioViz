@@ -51,9 +51,9 @@ var MidiInput = function() {
     } else if(note === 38) {
       Settings.modeSet('circle', Settings.modeGet('circle') === false);
     } else if(note === 39) {
-      JEvents.dispatchEvent('SMOKE', {color:'black'});
+      JEvents.dispatchEvent('SMOKE');
     } else if(note === 40) {
-      JEvents.dispatchEvent('SMOKE', {color:'white'});
+      Settings.modeSet('chili', Settings.modeGet('chili') === false);
     } else if(note === 41) {
       JEvents.dispatchEvent('BLAST');
     } else if(note === 42) {

@@ -20,10 +20,12 @@ var Smoke = function(){
     });
   };
 
-  this.blast = function(event) {
+  this.blast = function() {
     var videoPlane = new VideoPlane();
 
-    if(event.color === 'white') {
+    var curColor = Settings.getCurrentColors()[0];
+    var whiteSmokeColors = [3962322]
+    if(whiteSmokeColors.indexOf(curColor) > -1) {
       videoPlane.init(holder, THREE.AdditiveBlending, false, doneCallback);
     } else {
       videoPlane.init(holder, THREE.SubtractiveBlending, false, doneCallback);
