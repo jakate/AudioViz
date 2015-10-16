@@ -41,7 +41,7 @@ var Chilicorn = function(){
     scene = threeScene;
 
     video = document.createElement('video');
-    this.playVideo('horse.mp4');
+    this.playVideo('horse2.mp4');
 
     var w = 640;
     var h = 480;
