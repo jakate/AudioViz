@@ -18,7 +18,8 @@ var SettingsSingleton = function(){
     blocks: false,
     circle: true,
     flower: false,
-    smoke: false
+    smoke: false,
+    chili: false
   };
 
   var settings = {

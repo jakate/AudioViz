@@ -47,6 +47,9 @@ var KeyboardInput = function() {
       case '7':
         JEvents.dispatchEvent('BLAST');
         break;
+      case '8':
+        Settings.modeSet('chili', Settings.modeGet('chili') === false);
+        break;
 
       // --- Tap tempo ---
       case 'T':

@@ -2,6 +2,20 @@ var Chilicorn = function(){
   var video, videoImageContext, videoImage, videoTexture, scene, movieScreen;
   var self = this;
 
+  this.show = function() {
+    if(video) {
+      video.play();
+      movieScreen.position.z = 0;
+    }
+  };
+
+  this.hide = function() {
+    if(video) {
+      video.pause();
+      movieScreen.position.z = 1000;
+    }
+  };
+
   this.update = function() {
     if(!videoImageContext) {
       return;
@@ -50,7 +64,7 @@ var Chilicorn = function(){
 
     var movieGeometry = new THREE.PlaneBufferGeometry(w, h, 0, 0);
     movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
-    movieScreen.position.set(180, -100, -180);
+    movieScreen.position.set(220, -170, 80);
 
     scene.add(movieScreen);
   };

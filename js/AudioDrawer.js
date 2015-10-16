@@ -28,7 +28,7 @@ var AudioDrawer = function(){
     blocks.init(scene);
     smoke.init(scene);
     background.init(scene);
-    //chili.init(scene);
+    chili.init(scene);
 
     //For debugging
     //addControls();
@@ -66,6 +66,12 @@ var AudioDrawer = function(){
     } else {
       smoke.show();
     }
+
+    if(modes.chili === false){
+      chili.hide();
+    } else {
+      chili.show();
+    }
   };
 
   this.blast = function() {
@@ -85,7 +91,7 @@ var AudioDrawer = function(){
     background.update(data, bpm);
     blocks.update(data);
     smoke.update();
-    //chili.update();
+    chili.update();
     renderer.render(scene, camera);
 
     counter++;
