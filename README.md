@@ -1,5 +1,7 @@
 # AudioViz
 
+The tool is designed to be used with [Akai LPD8 Midi controller](http://www.akaipro.com/product/lpd8), but in can be used (to some extent) via keyboard.
+
 Demo:
 [demos.jaakkotepponen.com/audioviz/](http://demos.jaakkotepponen.com/audioviz/)
 
@@ -22,6 +24,11 @@ A = Colorscheme 1
 B = Colorscheme 2
 C = Colorscheme 3
 D = Colorscheme 4
+```
+
+###If you don't have a Midi controller
+```
+H = Toggle gui 
 ```
 
 ##MIDI controls:
