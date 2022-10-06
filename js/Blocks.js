@@ -1,17 +1,17 @@
 var Blocks = function(){
   var scene, holder, x, y, lights, colors;
-  var boxAmount = 128;
-  var boxSize = 2;
-  var boxHeight = boxSize * 2;
+  var boxAmount = 55;
+  var boxSize = 6;
+  var boxHeight = boxSize / 2;
   var boxes = [];
 
   var radOffset = -150;
-  var radius = (window.innerWidth < window.innerHeight ? window.innerWidth + radOffset : window.innerHeight + radOffset) / 4;
+  var radius = (window.innerWidth < window.innerHeight ? window.innerWidth + radOffset : window.innerHeight + radOffset) / 5;
   var h = radius;
   var k = radius;
   var r = radius;
 
-  var step = 2*Math.PI/boxAmount;
+  var step = 2 * Math.PI / boxAmount;
   var theta = step * (boxAmount / 4) * -1;
 
   var hidden = false;

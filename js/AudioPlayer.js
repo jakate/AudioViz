@@ -4,7 +4,7 @@ var AudioPlayer = function(){
   var context = new window.AudioContext();
   var analyser = context.createAnalyser();
   var gainNode = context.createGain();
-  var audioSource, bufferLength, dataArray, gainNode;
+  var audioSource, bufferLength, dataArray, gainNode,context,analyser,gainNode
 
   this.stop = function(){
     audioSource.stop();

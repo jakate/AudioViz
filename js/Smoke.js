@@ -24,7 +24,7 @@ var Smoke = function(){
     var videoPlane = new VideoPlane();
 
     var curColor = Settings.getCurrentColors()[0];
-    var whiteSmokeColors = [3962322]
+    var whiteSmokeColors = [3962322, 14362256]
     if(whiteSmokeColors.indexOf(curColor) > -1) {
       videoPlane.init(holder, THREE.AdditiveBlending, false, doneCallback);
     } else {

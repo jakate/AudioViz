@@ -15,8 +15,8 @@ var SettingsSingleton = function(){
 
   var modes = {
     background: true,
-    blocks: false,
-    circle: true,
+    blocks: true,
+    circle: false,
     flower: false,
     smoke: false,
     chili: false
@@ -36,10 +36,11 @@ var SettingsSingleton = function(){
   };
 
   var colorSchemes = [
+    [0x0b3ac0, 0xdb2690, 0xc77e3d, 0xea4167],
     [0x0000ff, 0xff0099, 0x00ff22, 0xff9900],
     [0x3C75D2, 0x3C91D2, 0x62CCF9, 0x0D429A],
     [0xe51e5b, 0xe51e9c, 0xe5301e, 0xe56d1e],
-    [0x00fa1d, 0x52fa00, 0xc2fa00, 0x2abc26]
+    [0x00fa1d, 0x52fa00, 0xc2fa00, 0x2abc26],
   ];
 
   var selectedScheme = 0;

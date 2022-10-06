@@ -5,7 +5,7 @@ The tool is designed to be used with [Akai LPD8 Midi controller](http://www.akai
 Demo:
 [https://audiov.herokuapp.com/](https://audiov.herokuapp.com/)
 
-##Keyboard shortcuts:
+## Keyboard shortcuts:
 
 ### Effects
 ```
@@ -18,22 +18,23 @@ Demo:
 7 = Bounce effect
 ```
 
-###Colors
+### Colors
 ```
 A = Colorscheme 1
 B = Colorscheme 2
 C = Colorscheme 3
 D = Colorscheme 4
+E = Colorscheme 5
 ```
 
-###If you don't have a Midi controller
+### If you don't have a Midi controller
 ```
 H = Toggle gui
 ```
 
-##MIDI controls:
+## MIDI controls:
 
-MIDI controller input is implemented with [Web MIDI](https://webaudio.github.io/web-midi-api/) and requires a recent version of Chrome.
+MIDI controller input is implemented with [Web MIDI](https://webaudio.github.io/web-midi-api/)
 
 ---
 

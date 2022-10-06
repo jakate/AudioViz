@@ -2,10 +2,7 @@
   var micForm = document.getElementById("micForm");
   var songForm = document.getElementById("songForm");
   var formHolder = document.getElementById("formHolder");
-  var av = new AudioVisualizer();
-
-  var midiInput = new MidiInput();
-  midiInput.init();
+  var av, midiInput
 
   function startVisualization(){
     av.init();
@@ -29,7 +26,16 @@
     av.initMic();
   }
 
-  init();
+  var start = function() {
+    window.removeEventListener('click', start)
+
+    av = new AudioVisualizer();
+    midiInput = new MidiInput();
+    midiInput.init();
+
+    init();
+  }
+  window.addEventListener('click', start)
 
   //songForm.addEventListener('submit', submitSongForm, false);
   //micForm.addEventListener('submit', submitMicForm, false);
